@@ -192,15 +192,116 @@ public class ImportTwoController extends BaseController {
     						"Sheet1", 11);
             Long end1 = new Date().getTime();
             System.out.println("处理excel用了 " + (end1 - begin1) / 1000 + " s" + "");
+            //定义总条数
+    		int totalSize = list.size();
+    		//定义线程数
+    		int threadNum = 8;
+    		//定义单元大小
+    		int unitSize = totalSize/threadNum ;
+    		//执行线程方法
+    		for (int i = 0; i <threadNum; i++) {
+    			List<DbTableone> unintList = new LinkedList<>();
+    			//这个优化
+    			int unitStart = unitSize*i;
+    			int unitEnd = unitSize*(i+1);
+    			System.out.println("处理第"+i+"个list开始");
+    			for (int k = unitStart; k < unitEnd; k++) {
+    				//System.out.println("分开所传的是"+k);
+    				
+    				String[] record = list.get(k);
+        			//System.out.print(k+"    ");
+        			
+        			DbTableone dbTableone = new DbTableone();
+        			String cardNum = record[0];//默认最左边编号也算一列 所以这里得1++
+                    dbTableone.setCardNum(cardNum);
+                    String idCard = record[1];
+                    dbTableone.setIdCard(idCard);
+                    String name = record[2];
+                    dbTableone.setName(name);
+                    String birthday = record[3];
+                    dbTableone.setBirthday(birthday);
+                    String address = record[4];
+                    dbTableone.setAddress(address);
+                    String sex = record[5];
+                    dbTableone.setSex(sex);
+                    String minzu = record[6];
+                    dbTableone.setMinzu(minzu);
+                    String rysx = record[7];
+                    dbTableone.setRysx(rysx);
+                    String country = record[8];
+                    dbTableone.setCountry(country);
+                    String country_cun = record[9];
+                    dbTableone.setCountryCun(country_cun);
+                    String cbzt = record[10];
+                    dbTableone.setCbzt(cbzt);
+                    dbTableone.setCreateTime(new Date());
+                	
+                    /*allmapData.put(idCard, dbTableone);
+                    keylist.add(idCard);
+                    
+                    //
+                    insertList.add(dbTableone);*/
+                    unintList.add(dbTableone);
+    			}
+    			//这个就走1次，不用管
+    			if(i==(threadNum-1)){
+    				// 这个优化一下
+    				int unitStart_in = unitSize*(i+1);
+    				for (int k = unitStart_in; k < totalSize; k++) {
+    					//System.out.println("分开所传的是"+k);
+    					
+    					String[] record = list.get(k);
+            			//System.out.print(k+"    ");
+            			
+            			DbTableone dbTableone = new DbTableone();
+            			String cardNum = record[0];//默认最左边编号也算一列 所以这里得1++
+                        dbTableone.setCardNum(cardNum);
+                        String idCard = record[1];
+                        dbTableone.setIdCard(idCard);
+                        String name = record[2];
+                        dbTableone.setName(name);
+                        String birthday = record[3];
+                        dbTableone.setBirthday(birthday);
+                        String address = record[4];
+                        dbTableone.setAddress(address);
+                        String sex = record[5];
+                        dbTableone.setSex(sex);
+                        String minzu = record[6];
+                        dbTableone.setMinzu(minzu);
+                        String rysx = record[7];
+                        dbTableone.setRysx(rysx);
+                        String country = record[8];
+                        dbTableone.setCountry(country);
+                        String country_cun = record[9];
+                        dbTableone.setCountryCun(country_cun);
+                        String cbzt = record[10];
+                        dbTableone.setCbzt(cbzt);
+                        dbTableone.setCreateTime(new Date());
+                    	
+                        /*allmapData.put(idCard, dbTableone);
+                        keylist.add(idCard);
+                        
+                        //
+                        insertList.add(dbTableone);*/
+                        unintList.add(dbTableone);
+    				}
+    			}
+    			System.out.println("处理第"+i+"个list结束");
+    			//上面的是处理数据的代码，下面是执行线程的代码
+//        		new MyThread(i+"").start();
+    			
+//    			dbTableoneService.insertBatch(insertList);
+    			new SpringThreadBeachInsertDbOne(dbTableoneService,unintList).start();
+    			
+    		}
+    		if(true){
+            	return getSuccessRtn("成功");
+            }
 //    		for (String[] record : list) {
             Long begin2 = new Date().getTime();
     		for (int i=0;i<list.size();i++) {
     			String[] record = list.get(i);
     			System.out.print(i+"    ");
-    			
-//    			for (String cell : record) {
-//    				System.out.print(cell + "  ");
-//    			}
     			
     			DbTableone dbTableone = new DbTableone();
     			String cardNum = record[0];//默认最左边编号也算一列 所以这里得1++
@@ -235,9 +336,7 @@ public class ImportTwoController extends BaseController {
     		System.out.println("放到list里用了 " + (end2 - begin2) / 1000 + " s" + "");
     		
             System.out.println("开始查数据库中存在的");
-            if(true){
-            	return getSuccessRtn("成功");
-            }
+            
             for (int i = 0; i < keylist.size(); i++) {
             	System.out.println(i);
             	insertList.add(allmapData.get(keylist.get(i)));

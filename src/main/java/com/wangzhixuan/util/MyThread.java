@@ -100,9 +100,9 @@ public class MyThread extends Thread {
 		List<Integer> list4 = new LinkedList<>();
 		
 		//定义总条数
-		int totalSize = 127;
+		int totalSize = 128;
 		//定义线程数
-		int threadNum = 3;
+		int threadNum = 10;
 		//定义单元大小
 		int unitSize = totalSize/threadNum ;
 		
