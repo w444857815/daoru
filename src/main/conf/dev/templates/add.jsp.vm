@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/commons/global.jsp" %>
+<script type="text/javascript">
+    $(function() {
+        $('#${table.entityPath}AddForm').form({
+            url : '${path}/${table.entityPath}/add',
+            onSubmit : function() {
+                progressLoad();
+                var isValid = $(this).form('validate');
+                if (!isValid) {
+                    progressClose();
+                }
+                return isValid;
+            },
+            success : function(result) {
+                progressClose();
+                result = $.parseJSON(result);
+                if (result.success) {
+                    //之所以能在这里调用到parent.$.modalDialog.openner_dataGrid这个对象，是因为user.jsp页面预定义好了
+                    parent.$.modalDialog.openner_dataGrid.datagrid('reload');
+                    parent.$.modalDialog.handler.dialog('close');
+                } else {
+                    var form = $('#${table.entityPath}AddForm');
+                    parent.$.messager.alert('错误', eval(result.msg), 'error');
+                }
+            }
+        });
+    });
+</script>
+<div class="easyui-layout" data-options="fit:true,border:false" >
+    <div data-options="region:'center',border:false" style="overflow: hidden;padding: 3px;" >
+        <form id="${table.entityPath}AddForm" method="post">
+            <table class="grid">
+                
+                #foreach($field in ${table.fields})
+				#if(!${field.keyFlag})##生成普通字段
+					
+					#if($!field.type == 'datetime')
+						<tr>
+							<td>${field.comment}</td>
+							<td><input name="${field.propertyName}" id="${field.propertyName}" type="text" id="d233" onFocus="WdatePicker({startDate:'%y-%M-%d %H:%m:%s',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"/></td>
+						</tr> 
+					#else 
+						
+						<tr>
+		                    <td>${field.comment}</td>
+		                    <td><input name="${field.propertyName}" type="text" placeholder="请输入内容" class="easyui-validatebox span2" data-options="required:true" value=""></td>
+		                </tr> 
+						
+						
+					#end
+					
+					
+					
+				#end
+				#end
+                
+            </table>
+        </form>
+    </div>
+</div>

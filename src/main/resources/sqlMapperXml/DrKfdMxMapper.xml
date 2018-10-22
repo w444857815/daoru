@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangzhixuan.mapper.DrKfdMxMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wangzhixuan.model.DrKfdMx">
+		<id column="id" property="id" />
+		<result column="jishu" property="jishu" />
+		<result column="jl_time" property="jlTime" />
+		<result column="goods_name" property="goodsName" />
+		<result column="goods_guige" property="goodsGuige" />
+		<result column="goods_unit" property="goodsUnit" />
+		<result column="goods_num" property="goodsNum" />
+		<result column="shop_name" property="shopName" />
+		<result column="shop_address" property="shopAddress" />
+		<result column="shop_lxr" property="shopLxr" />
+		<result column="shop_lxrmobile" property="shopLxrmobile" />
+		<result column="if_pay" property="ifPay" />
+		<result column="if_bills_sh" property="ifBillsSh" />
+		<result column="shop_property" property="shopProperty" />
+		<result column="shop_disappear" property="shopDisappear" />
+		<result column="shop_zrr" property="shopZrr" />
+		<result column="remark" property="remark" />
+		<result column="zpff" property="zpff" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="delete_flag" property="deleteFlag" />
+		<result column="status" property="status" />
+	</resultMap>
+
+</mapper>
