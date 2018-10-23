@@ -1,47 +1,7 @@
 package com.wangzhixuan.commons.report.excel;
 
 import java.io.Closeable;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.ss.util.CellReference;
-import org.apache.poi.util.IOUtils;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.support.DefaultConversionService;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.common.TemplateParserContext;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
-
-import com.wangzhixuan.commons.utils.StringUtils;
 
 /**
  *
@@ -52,6 +12,12 @@ import com.wangzhixuan.commons.utils.StringUtils;
  * @author L.cm
  */
 public final class EasyExcel implements Closeable {
+
+	@Override
+	public void close() throws IOException {
+		// TODO Auto-generated method stub
+		
+	}/*
 	private static final Logger logger = LogManager.getLogger(EasyExcel.class);
 	
 	// 缓存类信息，提高性能
@@ -71,7 +37,7 @@ public final class EasyExcel implements Closeable {
 	private String excelFilePath;
 	private final Workbook workbook;
 	
-	/**
+	*//**
 	 * 构造方法，传入需要操作的excel文件路径
 	 *
 	 * @param excelFilePath
@@ -80,7 +46,7 @@ public final class EasyExcel implements Closeable {
 	 *             IO流异常
 	 * @throws InvalidFormatException
 	 *             非法的格式异常
-	 */
+	 *//*
 	public EasyExcel(String excelFilePath) throws IOException, InvalidFormatException {
 		this.startRow = 0;
 		this.sheetName = "Sheet1";
@@ -88,7 +54,7 @@ public final class EasyExcel implements Closeable {
 		this.workbook = createWorkbook();
 	}
 	
-	/**
+	*//**
 	 * 通过数据流操作excel，仅用于读取数据
 	 *
 	 * @param inputStream
@@ -97,7 +63,7 @@ public final class EasyExcel implements Closeable {
 	 *             IO流异常
 	 * @throws InvalidFormatException
 	 *             非法的格式异常
-	 */
+	 *//*
 	public EasyExcel(InputStream inputStream) throws IOException, InvalidFormatException {
 		this.startRow = 0;
 		this.sheetName = "Sheet1";
@@ -105,7 +71,7 @@ public final class EasyExcel implements Closeable {
 		this.workbook = WorkbookFactory.create(inputStream);
 	}
 	
-	/**
+	*//**
 	 * 通过数据流操作excel
 	 *
 	 * @param inputStream
@@ -116,18 +82,18 @@ public final class EasyExcel implements Closeable {
 	 *             IO流异常
 	 * @throws InvalidFormatException
 	 *             非法的格式异常
-	 */
+	 *//*
 	public EasyExcel(InputStream inputStream, String outFilePath) throws IOException, InvalidFormatException {
 		this(inputStream);
 		this.excelFilePath = outFilePath;
 	}
 	
-	/**
+	*//**
 	 * 开始读取的行数，这里指的是标题内容行的行数，不是数据开始的那行
 	 *
 	 * @param startRow
 	 *            开始行数
-	 */
+	 *//*
 	public void setStartRow(int startRow) {
 		if (startRow < 1) {
 			throw new RuntimeException("最小为1");
@@ -135,13 +101,13 @@ public final class EasyExcel implements Closeable {
 		this.startRow = --startRow;
 	}
 	
-	/**
+	*//**
 	 * 解析读取excel文件
 	 *
 	 * @param clazz 对应的映射类型
 	 * @param <T> 泛型
 	 * @return 读取结果
-	 */
+	 *//*
 	public <T> List<T> parse(Class<T> clazz) {
 		List<T> resultList = null;
 		try {
@@ -273,13 +239,13 @@ public final class EasyExcel implements Closeable {
 		return workbook;
 	}
 	
-	/**
+	*//**
 	 * 将数据写入excel文件
 	 *
 	 * @param list 数据列表
 	 * @param <T> 泛型
 	 * @return 写入结果
-	 */
+	 *//*
 	public <T> boolean createExcel(List<T> list) {
 		if (null == this.excelFilePath || "".equals(this.excelFilePath))
 			throw new NullPointerException("excelFilePath is null");
@@ -396,11 +362,11 @@ public final class EasyExcel implements Closeable {
 		this.workbook.close();
 	}
 	
-	/**
+	*//**
 	 * 获取类注解信息
 	 * @param clazz
 	 * @return ExcelFiledInfo集合
-	 */
+	 *//*
 	private List<ExcelFiledInfo> getFiledInfo(Class<?> clazz) {
 		String name = clazz.getName();
 		if (filedInfo.containsKey(name)) {
@@ -412,11 +378,11 @@ public final class EasyExcel implements Closeable {
 		}
 	}
 	
-	/**
+	*//**
 	 * 获取类注解信息
 	 * @param clazz
 	 * @return ExcelFiledInfo集合
-	 */
+	 *//*
 	private List<ExcelFiledInfo> loadFiledInfo(Class<?> clazz) {
 		List<ExcelFiledInfo> infoList = new ArrayList<ExcelFiledInfo>();
 		Field[] fields = clazz.getDeclaredFields();
@@ -431,12 +397,12 @@ public final class EasyExcel implements Closeable {
 		return infoList;
 	}
 	
-	/**
+	*//**
 	 * 设置需要读取的sheet名字，不设置默认的名字是Sheet1，也就是excel默认给的名字，所以如果文件没有自已修改，这个方法也就不用调了
 	 *
 	 * @param sheetName 需要读取的Sheet名字
-	 */
+	 *//*
 	public void setSheetName(String sheetName) {
 		this.sheetName = sheetName;
 	}
-}
+*/}

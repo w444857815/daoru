@@ -1,11 +1,11 @@
 package com.wangzhixuan.controller;
 
+import java.util.Date;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wangzhixuan.model.DbTableone;
 import com.wangzhixuan.service.IDbTableoneService;
+import com.wangzhixuan.util.BreakList;
 
 public class SpringThreadBeachInsertDbOne extends Thread {
 	
@@ -23,36 +23,30 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 		this.dbTableOneList = insertList;
 	}
 	
-	public static void runa() {
-		//设置每1000条提交一次
-		//定义总条数
-		int totalSize = 12;//dbTableOneList.size()
-		//定义单元大小
-		int unitSize = 10 ;
-		//提交次数  2
-		int commitSize = totalSize/unitSize>0?totalSize/unitSize+1:totalSize/unitSize;
-		System.out.println(commitSize);
-		for (int i = 0; i <commitSize; i++) {
-			//这个优化
-			int unitStart = unitSize*i;
-			int unitEnd = unitSize*(i+1);
-			for (int k = unitStart; k < unitEnd; k++) {
-				System.out.println("分开所传的是"+k);
+	public void run() {
+		//定义几个列表，也就是分几次事物事物
+		
+		int shiwuSize = 10;
+		if(dbTableOneList.size()>shiwuSize){
+			List<List<DbTableone>> numsList = BreakList.createListBySizeNum(dbTableOneList, shiwuSize);
+			for (int i = 0; i < numsList.size(); i++) {
+				// 开始时间
+				Long begin = new Date().getTime();
+				dbTableoneService.insertBatch(numsList.get(i));
+				// 开始时间
+				Long end = new Date().getTime();
+				// 耗时
+				System.out.println("数据插入花费时间 : " + (end - begin) / 1000 + " s" + "  插入完成");
 			}
-			//这个就走1次，不用管
-			if(i==(commitSize-1)){
-				// 这个优化一下
-				int unitStart_in = unitSize*(i+1);
-				for (int k = unitStart_in; k < totalSize; k++) {
-					System.out.println("分开所传的是"+k);
-				}
-			}
-			//上面的是处理数据的代码，下面是执行线程的代码
-//    		new MyThread(i+"").start();
+		}else{
+			// 开始时间
+			Long begin = new Date().getTime();
+			dbTableoneService.insertBatch(dbTableOneList);
+			// 开始时间
+			Long end = new Date().getTime();
+			// 耗时
+			System.out.println("数据插入花费时间 : " + (end - begin) / 1000 + " s" + "  插入完成");
 		}
-		//dbTableoneService.insertBatch(dbTableOneList);
-	}
-	public static void main(String[] args) {
-		runa();
+		
 	}
 }

@@ -195,7 +195,7 @@ public class ImportTwoController extends BaseController {
             //定义总条数
     		int totalSize = list.size();
     		//定义线程数
-    		int threadNum = 8;
+    		int threadNum = 20;
     		//定义单元大小
     		int unitSize = totalSize/threadNum ;
     		//执行线程方法
