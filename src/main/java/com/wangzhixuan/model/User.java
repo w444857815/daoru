@@ -46,6 +46,8 @@ public class User implements Serializable {
 
 	/** 所属机构 */
 	private Integer organizationId;
+	/** 0空状态，可以上传;   1已上传未导入*/
+	private Integer fileType;
 
 	/** 创建时间 */
 	private Date createTime;
@@ -145,6 +147,16 @@ public class User implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	
+	
+	public Integer getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(Integer fileType) {
+		this.fileType = fileType;
 	}
 
 	@Override

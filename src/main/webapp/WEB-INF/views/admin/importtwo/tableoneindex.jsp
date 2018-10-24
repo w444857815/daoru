@@ -202,7 +202,9 @@
         $('#searchUserForm input').val('');
         userDataGrid.datagrid('load', {});
     }
-    function ceshi(){
+    
+    //导入信息 
+    function importData(){
     	$.ajax({
 			type : "post",
 			url : "${pageContext.request.contextPath}/importtwo/importdata",
@@ -228,7 +230,7 @@
     }
     
     //上传并导入
-    function upfileimportdata(){
+    function upfilefile(){
     	var files = document.getElementById("uploadFile").files;
 		//文件数量
 		//alert(files.length);
@@ -284,6 +286,8 @@
   	    return xhr;
   	  }
   	}
+    
+    
 </script>
 
 <style type="text/css">
@@ -354,9 +358,9 @@
                     	<input type="file" name="file" multiple id="uploadFile"/>
                     </td>
                     <td>
-                        <a href="javascript:void(0);" class="easyui-linkbutton"  onclick="upfileimportdata();" id="upbutton">上传</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanUserFun();" id="importDatabut">导入信息</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="ceshi();">测试</a>
+                        <a href="javascript:void(0);" class="easyui-linkbutton"  onclick="upfilefile();" id="upbutton">上传</a>
+                        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="importData();" id="importDatabut">导入信息</a>
+<!--                         <a href="javascript:void(0);" class="easyui-linkbutton" onclick="ceshi();">测试</a> -->
                         <input  id="xxx"/>
                         
                     </td>

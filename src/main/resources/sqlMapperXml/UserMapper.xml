@@ -81,4 +81,88 @@
         GROUP BY t.id
     </select>
 
+
+	<resultMap id="BaseResultMap" type="com.wangzhixuan.model.User" >
+			 <id column="id" property="id" jdbcType="BIGINT" />
+			<result column="login_name" property="loginName" jdbcType="VARCHAR" />
+			<result column="name" property="name" jdbcType="VARCHAR" />
+			<result column="password" property="password" jdbcType="VARCHAR" />
+			<result column="salt" property="salt" jdbcType="VARCHAR" />
+			<result column="sex" property="sex" jdbcType="TINYINT" />
+			<result column="age" property="age" jdbcType="TINYINT" />
+			<result column="phone" property="phone" jdbcType="VARCHAR" />
+			<result column="user_type" property="userType" jdbcType="TINYINT" />
+			<result column="status" property="status" jdbcType="TINYINT" />
+			<result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+			<result column="file_type" property="fileType" jdbcType="INTEGER" />
+			<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Baseuser_Column_List" >
+		id,
+		login_name,
+		name,
+		password,
+		salt,
+		sex,
+		age,
+		phone,
+		user_type,
+		status,
+		organization_id,
+		file_type,
+		create_time
+  </sql>
+
+
+	<select id="selectById" resultMap="BaseResultMap" >
+	    select 
+	    <include refid="Baseuser_Column_List" />
+	    from user
+	    where id = #{id,jdbcType=INTEGER}
+	  </select>
+
+
+
+	<update id="updateById" parameterType="com.wangzhixuan.model.User" >
+    update user
+    <set >
+	<if test="loginName != null" >
+	login_name = #{loginName,jdbcType=VARCHAR},
+	</if>
+	<if test="name != null" >
+	name = #{name,jdbcType=VARCHAR},
+	</if>
+	<if test="password != null" >
+	password = #{password,jdbcType=VARCHAR},
+	</if>
+	<if test="salt != null" >
+	salt = #{salt,jdbcType=VARCHAR},
+	</if>
+	<if test="sex != null" >
+	sex = #{sex,jdbcType=TINYINT},
+	</if>
+	<if test="age != null" >
+	age = #{age,jdbcType=TINYINT},
+	</if>
+	<if test="phone != null" >
+	phone = #{phone,jdbcType=VARCHAR},
+	</if>
+	<if test="userType != null" >
+	user_type = #{userType,jdbcType=TINYINT},
+	</if>
+	<if test="status != null" >
+	status = #{status,jdbcType=TINYINT},
+	</if>
+	<if test="organizationId != null" >
+	organization_id = #{organizationId,jdbcType=INTEGER},
+	</if>
+	<if test="fileType != null" >
+	file_type = #{fileType,jdbcType=INTEGER},
+	</if>
+	<if test="createTime != null" >
+	create_time = #{createTime,jdbcType=TIMESTAMP},
+	</if>
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
