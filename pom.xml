@@ -213,10 +213,10 @@
         
         
         <dependency>
-		   <groupId>com.monitorjbl</groupId>
-		   <artifactId>xlsx-streamer</artifactId>
-		   <version>2.0.0</version>
-		 </dependency>
+            <groupId>com.monitorjbl</groupId>
+            <artifactId>xlsx-streamer</artifactId>
+            <version>1.2.0</version>
+        </dependency>
 		 
     </dependencies>
 

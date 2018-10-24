@@ -244,7 +244,10 @@
 	            data:formData,
 	            xhr:xhrOnProgress(function(e){
 	                var percent=e.loaded / e.total;//计算百分比
-	                $('#xxx'+i).val(percent);
+	                $('#xxx').val(percent);
+	                
+	                $('#jindu').attr("style","width: "+percent*100+"%");
+	                $('#jindu').html(percent*100+"%");
 	                console.log(i + '=========' +percent);
 	            }),
 	            processData : false,// 不处理数据
@@ -282,20 +285,91 @@
   	  }
   	}
 </script>
+
+<style type="text/css">
+	.progress {
+	  overflow: hidden;
+	  height: 20px;
+	  margin-bottom: 20px;
+	  margin-top: 20px;
+	  margin-left: 3px;
+	  background-color: #f7f7f7;
+	  background-image: -moz-linear-gradient(top, #f5f5f5, #f9f9f9);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f9f9f9));
+	  background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+	  background-image: -o-linear-gradient(top, #f5f5f5, #f9f9f9);
+	  background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+	  background-repeat: repeat-x;
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
+	  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	  -webkit-border-radius: 4px;
+	  -moz-border-radius: 4px;
+	  border-radius: 4px;
+	  width:408px;
+	  margin-right:12px;
+	}
+	
+	.progress .bar {
+	  width: 0%;
+	  height: 100%;
+	  color: #ffffff;
+	  float: left;
+	  font-size: 12px;
+	  text-align: center;
+	  align-items: center;
+	  display: flex;
+	  justify-content: center;
+	  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	  background-color: #0e90d2;
+	  background-image: -moz-linear-gradient(top, #149bdf, #0480be);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
+	  background-image: -webkit-linear-gradient(top, #149bdf, #0480be);
+	  background-image: -o-linear-gradient(top, #149bdf, #0480be);
+	  background-image: linear-gradient(to bottom, #149bdf, #0480be);
+	  background-repeat: repeat-x;
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
+	  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	  -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	  -webkit-transition: width 0.6s ease;
+	  -moz-transition: width 0.6s ease;
+	  -o-transition: width 0.6s ease;
+	  transition: width 0.6s ease;
+	}
+</style>
+<!-- <link href="static/fileupload/progress.css" /> -->
+
 <div class="easyui-layout" data-options="fit:true,border:false">
     <div data-options="region:'north',border:false" style="overflow: hidden;background-color: #fff">
         <form id="searchUserForm">
             <table>
                 <tr>
-                    <td>导入第一张表:</td>
+                    <td style="width: 100px;">导入第一张表:</td>
                     <td>
                     	<input type="file" name="file" multiple id="uploadFile"/>
                     </td>
                     <td>
-                        <a href="javascript:void(0);" class="easyui-linkbutton"  onclick="upfileimportdata();">上传并导入</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanUserFun();">插入</a>
+                        <a href="javascript:void(0);" class="easyui-linkbutton"  onclick="upfileimportdata();" id="upbutton">上传</a>
+                        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="cleanUserFun();" id="importDatabut">导入信息</a>
                         <a href="javascript:void(0);" class="easyui-linkbutton" onclick="ceshi();">测试</a>
+                        <input  id="xxx"/>
+                        
                     </td>
+                </tr>
+                <tr>
+                	<td>
+                		上传进度
+                	</td>
+                	<td>
+                		<div class="progress">
+							<div class="bar" style="width: 0%;" id="jindu">60%</div>
+                        </div>
+                	</td>
                 </tr>
                 <tr>
                 	<td>当前表一中共有<span style="color: red;">${allsize }</span>条数据</td>

@@ -455,10 +455,15 @@ public class XLSXCovertCSVReader {
 	}
 
 	public static void main(String[] args) throws Exception {
+		Long begin = new Date().getTime();
 		List<String[]> list = XLSXCovertCSVReader
 				.readerExcel(
 						"D:\\zhuanmen.xlsx",
-						"Sheet1", 11);
+						"Sheet1.2", 12);
+		// 结束时间
+ 		Long end = new Date().getTime();
+ 		// 耗时
+ 		System.out.println("读取文件花费时间 : " + (end - begin) / 1000 + " s" + "  插入完成");
 //		for (String[] record : list) {
 		for (int i=0;i<list.size();i++) {
 			String[] record = list.get(i);

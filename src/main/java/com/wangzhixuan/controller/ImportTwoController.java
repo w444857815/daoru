@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wangzhixuan.commons.base.BaseController;
 import com.wangzhixuan.commons.csrf.CsrfToken;
+import com.wangzhixuan.commons.shiro.ShiroUser;
 import com.wangzhixuan.model.DbTableone;
+import com.wangzhixuan.model.User;
 import com.wangzhixuan.service.IDbTableoneService;
 import com.wangzhixuan.util.DateUtil;
 import com.wangzhixuan.util.FileUploadUtil;
@@ -107,13 +109,8 @@ public class ImportTwoController extends BaseController {
     	else{
     		filePath = upmap.get("data").toString();
     	}
-//    	MultipartFile file = files[0];
-    	File file = new File("D://zhuanmen.xlsx");
-    	 ReadExcel readExcel = new ReadExcel();  
-    	 List<Map<String, Object>> userList = readExcel.getExcelInfo(file);  
-    	 for (int i = 0; i < userList.size(); i++) {
-			System.out.println(userList.get(i));
-		}
+    	ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
+        System.out.println(acount.getName()+"**********");
     	Map<String,Object> resultmap = new HashMap<String,Object>();
     	resultmap.put("resultmap", filePath);
     	return resultmap;
