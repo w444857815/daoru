@@ -241,7 +241,8 @@ public class XLSX2CSV {
         OPCPackage p = OPCPackage.open(xlsxFile.getPath(), PackageAccess.READ);  
         XLSX2CSV xlsx2csv = new XLSX2CSV(p,  4);*/  
     	Long begin = new Date().getTime();
-        List<String[]>list=getRecords("D://zhuanmen.xlsx",12);  
+//        List<String[]>list=getRecords("D://zhuanmen.xlsx",12);  
+        List<String[]>list=getRecords("D://kong.xlsx",11);  
      // 结束时间
  		Long end = new Date().getTime();
  		// 耗时

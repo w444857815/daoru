@@ -244,7 +244,8 @@ public class XLSXCovertCSVReader {
 						int idx = Integer.parseInt(sstIndex);
 						XSSFRichTextString rtss = new XSSFRichTextString(
 								sharedStringsTable.getEntryAt(idx));
-						thisStr = '"' + rtss.toString() + '"';
+//						thisStr = '"' + rtss.toString() + '"';
+						thisStr =  rtss.toString() ;
 					} catch (NumberFormatException ex) {
 						output.println("Failed to parse SST index '" + sstIndex
 								+ "': " + ex.toString());
@@ -417,13 +418,21 @@ public class XLSXCovertCSVReader {
 				.getSheetsData();
 		int index = 0;
 		while (iter.hasNext()) {
-			InputStream stream = iter.next();
+			/*InputStream stream = iter.next();
 			String sheetNameTemp = iter.getSheetName();
 			if (this.sheetName.equals(sheetNameTemp)) {
 				list = processSheet(styles, strings, stream);
 				stream.close();
 				++index;
+			}*/
+			if(index>0){
+				break;
 			}
+			InputStream stream = iter.next();
+			String sheetNameTemp = iter.getSheetName();
+			list = processSheet(styles, strings, stream);
+			stream.close();
+			++index;
 		}
 		return list;
 	}
@@ -458,8 +467,8 @@ public class XLSXCovertCSVReader {
 		Long begin = new Date().getTime();
 		List<String[]> list = XLSXCovertCSVReader
 				.readerExcel(
-						"D:\\zhuanmen.xlsx",
-						"Sheet1.2", 12);
+						"D:\\kong.xlsx",
+						"Sheet122", 11);
 		// 结束时间
  		Long end = new Date().getTime();
  		// 耗时

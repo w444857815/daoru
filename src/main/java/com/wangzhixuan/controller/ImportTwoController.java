@@ -461,7 +461,7 @@ select * from test where name in (1,5)
         	}
             
             Long begin1 = new Date().getTime();
-            List<String[]> list = XLSX2CSV.getRecords("D:\\zhuanmen.xlsx", 11);
+            List<String[]> list = XLSX2CSV.getRecords("D:\\test2.xlsx", 11);
 /*            List<String[]> list = XLSXCovertCSVReader
             		.readerExcel(
             				"D:\\test2.xlsx",

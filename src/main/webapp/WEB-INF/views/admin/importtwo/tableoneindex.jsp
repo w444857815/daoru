@@ -376,18 +376,18 @@
                 	</td>
                 </tr>
                 <tr>
-                	<td>当前表一中共有<span style="color: red;">${allsize }</span>条数据</td>
+                	<td colspan="2">当前表一中共有<span style="color: red;">${allsize }</span>条数据</td>
                 </tr>
 <!--                 导入数据以后就立马把这条信息显示出来 -->
                 <div hidden="hidden">
 	                <tr>
-	                	<td>当前文件中共有<span id="xlsDataNums" style="color: red;">0</span>条数据</td>
+	                	<td colspan="2">当前文件中共有<span id="xlsDataNums" style="color: red;">0</span>条数据</td>
 	                </tr>
                 </div>
 <!--                 点击导入以后，再把这条信息显示出来 -->
                 <div class="">
 	               <tr>
-	               	<td>其中<span id="updateSize" style="color: red;">0</span>条重复(已更新)，<span id="insertSize" style="color: red;">0</span>条导入成功，目前库中共<span id="nowTableSize" style="color: red;">0</span>条数据</td>
+	               	<td colspan="2">其中<span id="updateSize" style="color: red;">0</span>条重复(已更新)，<span id="insertSize" style="color: red;">0</span>条导入成功，目前库中共<span id="nowTableSize" style="color: red;">0</span>条数据</td>
 	               </tr>
                 </div>
             </table>
