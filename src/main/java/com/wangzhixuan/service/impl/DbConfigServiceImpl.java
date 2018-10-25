@@ -1,0 +1,66 @@
+package com.wangzhixuan.service.impl;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.wangzhixuan.mapper.DbConfigMapper;
+import com.wangzhixuan.mapper.DbTableoneMapper;
+import com.wangzhixuan.model.DbConfigTable;
+import com.wangzhixuan.model.DbTableone;
+import com.wangzhixuan.service.IDbConfigService;
+
+/**
+ * <p>
+ *  服务实现类
+ * </p>
+ *
+ * @author ruwei.wang
+ * @since 2018-10-18
+ */
+@Service
+public class DbConfigServiceImpl extends ServiceImpl<DbConfigMapper, DbConfigTable> implements IDbConfigService {
+
+	@Autowired
+	private DbConfigMapper dbConfigMapper;
+	
+	
+	@Override
+	public int selectAllCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<String> selectExistNums(List<String> keylist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateByIdCard(DbTableone dbTableone) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateBatchByIdCard(List<DbTableone> updateList) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/**
+	 * 批量插入动态表
+	 */
+	@Override
+	public void insertBatch(List<DbConfigTable> entityList, String tableName, LinkedList<Integer> colNumsList) {
+		dbConfigMapper.insertBatch(entityList,tableName,colNumsList);
+	}
+	
+	
+	
+	
+}

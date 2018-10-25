@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -23,13 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wangzhixuan.commons.base.BaseController;
 import com.wangzhixuan.commons.csrf.CsrfToken;
 import com.wangzhixuan.commons.shiro.ShiroUser;
+import com.wangzhixuan.model.DbConfigTable;
 import com.wangzhixuan.model.DbTableone;
 import com.wangzhixuan.model.User;
+import com.wangzhixuan.service.IDbConfigService;
 import com.wangzhixuan.service.IDbTableoneService;
 import com.wangzhixuan.service.IUserService;
 import com.wangzhixuan.util.DateUtil;
 import com.wangzhixuan.util.FileUploadUtil;
-import com.wangzhixuan.util.ReadExcel;
 import com.wangzhixuan.util.XLSXCovertCSVReader;
 import com.wangzhixuan.util.bigfile.XLSX2CSV;
 
@@ -47,6 +49,9 @@ public class ImportTwoController extends BaseController {
     
     @Autowired
     private IDbTableoneService dbTableoneService;
+    
+    @Autowired
+    private IDbConfigService iDbConfigService;
     
     @Autowired
     private IUserService iUserService;
@@ -128,7 +133,7 @@ public class ImportTwoController extends BaseController {
     	upuser.setId(user.getId());
     	upuser.setFileType(1);
     	iUserService.updateById(upuser);
-    	return getSuccessRtn("上传成功");
+    	return getSuccessRtn(filePath,"上传成功");
     }
     
     /**
@@ -303,7 +308,7 @@ public class ImportTwoController extends BaseController {
 //        		new MyThread(i+"").start();
     			
 //    			dbTableoneService.insertBatch(insertList);
-    			new SpringThreadBeachInsertDbOne(dbTableoneService,unintList).start();
+    			//new SpringThreadBeachInsertDbOne(dbTableoneService,unintList).start();
     			
     		}
     		if(true){
@@ -453,15 +458,18 @@ select * from test where name in (1,5)
             //这里放的是 身份证号(关键字)， 实体数据
             Map<String,DbTableone> allmapData = new HashMap<String,DbTableone>();
             
-            //导入前先判断是否有导入资格
-            ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
+            //导入前先判断是否有导入资格  一期不判断这些了
+            /*ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
         	User user = iUserService.selectById(acount.getId());
         	if(user.getFileType()!=1){
         		return getFailRtn("还有未导入的文件，请先导入");
-        	}
+        	}*/
             
             Long begin1 = new Date().getTime();
-            List<String[]> list = XLSX2CSV.getRecords("D:\\test2.xlsx", 11);
+//            List<String[]> list = XLSXCovertCSVReader.getRecords("D:\\zhuanmen.xlsx", 11);
+            List<String[]> list = XLSXCovertCSVReader.readerExcel(
+					"D:\\zhuanmen.xlsx",
+					"随便", 11);
 /*            List<String[]> list = XLSXCovertCSVReader
             		.readerExcel(
             				"D:\\test2.xlsx",
@@ -472,12 +480,22 @@ select * from test where name in (1,5)
             //定义总条数
     		int totalSize = list.size();
     		//定义线程数
-    		int threadNum = 20;
+    		int threadNum = 1;
+    		CountDownLatch count = new CountDownLatch(threadNum);
+    		//定义表名
+    		ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
+    		String tableName = acount.getLoginName();
+    		//列数
+    		int colNums = 4;
+    		LinkedList<Integer> colNumsList = new LinkedList<>();
+    		for (int i = 0; i < colNums; i++) {
+    			colNumsList.add(i);
+			}
     		//定义单元大小
     		int unitSize = totalSize/threadNum ;
     		//执行线程方法
     		for (int i = 0; i <threadNum; i++) {
-    			List<DbTableone> unintList = new LinkedList<>();
+    			List<DbConfigTable> unintList = new LinkedList<>();
     			//这个优化
     			int unitStart = unitSize*i;
     			int unitEnd = unitSize*(i+1);
@@ -488,37 +506,26 @@ select * from test where name in (1,5)
     				String[] record = list.get(k);
         			//System.out.print(k+"    ");
         			
-        			DbTableone dbTableone = new DbTableone();
-        			String cardNum = record[0];//默认最左边编号也算一列 所以这里得1++
-                    dbTableone.setCardNum(cardNum);
-                    String idCard = record[1];
-                    dbTableone.setIdCard(idCard);
-                    String name = record[2];
-                    dbTableone.setName(name);
-                    String birthday = record[3];
-                    dbTableone.setBirthday(birthday);
-                    String address = record[4];
-                    dbTableone.setAddress(address);
-                    String sex = record[5];
-                    dbTableone.setSex(sex);
-                    String minzu = record[6];
-                    dbTableone.setMinzu(minzu);
-                    String rysx = record[7];
-                    dbTableone.setRysx(rysx);
-                    String country = record[8];
-                    dbTableone.setCountry(country);
-                    String country_cun = record[9];
-                    dbTableone.setCountryCun(country_cun);
-                    String cbzt = record[10];
-                    dbTableone.setCbzt(cbzt);
-                    dbTableone.setCreateTime(new Date());
+    				DbConfigTable dbConfigTable = new DbConfigTable();
+                    dbConfigTable.setCol0(record[0]);
+                    dbConfigTable.setCol1(record[1]);
+                    dbConfigTable.setCol2(record[2]);
+                    dbConfigTable.setCol3(record[3]);
+                    dbConfigTable.setCol4(record[4]);
+                    dbConfigTable.setCol5(record[5]);
+                    dbConfigTable.setCol6(record[6]);
+                    dbConfigTable.setCol7(record[7]);
+                    dbConfigTable.setCol8(record[8]);
+                    dbConfigTable.setCol9(record[9]);
+                    dbConfigTable.setCol10(record[10]);
+                    
                 	
                     /*allmapData.put(idCard, dbTableone);
                     keylist.add(idCard);
                     
                     //
                     insertList.add(dbTableone);*/
-                    unintList.add(dbTableone);
+                    unintList.add(dbConfigTable);
     			}
     			//这个就走1次，不用管
     			if(i==(threadNum-1)){
@@ -530,37 +537,25 @@ select * from test where name in (1,5)
     					String[] record = list.get(k);
             			//System.out.print(k+"    ");
             			
-            			DbTableone dbTableone = new DbTableone();
-            			String cardNum = record[0];//默认最左边编号也算一列 所以这里得1++
-                        dbTableone.setCardNum(cardNum);
-                        String idCard = record[1];
-                        dbTableone.setIdCard(idCard);
-                        String name = record[2];
-                        dbTableone.setName(name);
-                        String birthday = record[3];
-                        dbTableone.setBirthday(birthday);
-                        String address = record[4];
-                        dbTableone.setAddress(address);
-                        String sex = record[5];
-                        dbTableone.setSex(sex);
-                        String minzu = record[6];
-                        dbTableone.setMinzu(minzu);
-                        String rysx = record[7];
-                        dbTableone.setRysx(rysx);
-                        String country = record[8];
-                        dbTableone.setCountry(country);
-                        String country_cun = record[9];
-                        dbTableone.setCountryCun(country_cun);
-                        String cbzt = record[10];
-                        dbTableone.setCbzt(cbzt);
-                        dbTableone.setCreateTime(new Date());
+    					DbConfigTable dbConfigTable = new DbConfigTable();
+                        dbConfigTable.setCol0(record[0]);
+                        dbConfigTable.setCol1(record[1]);
+                        dbConfigTable.setCol2(record[2]);
+                        dbConfigTable.setCol3(record[3]);
+                        dbConfigTable.setCol4(record[4]);
+                        dbConfigTable.setCol5(record[5]);
+                        dbConfigTable.setCol6(record[6]);
+                        dbConfigTable.setCol7(record[7]);
+                        dbConfigTable.setCol8(record[8]);
+                        dbConfigTable.setCol9(record[9]);
+                        dbConfigTable.setCol10(record[10]);
                     	
                         /*allmapData.put(idCard, dbTableone);
                         keylist.add(idCard);
                         
                         //
                         insertList.add(dbTableone);*/
-                        unintList.add(dbTableone);
+                        unintList.add(dbConfigTable);
     				}
     			}
     			System.out.println("处理第"+i+"个list结束");
@@ -568,9 +563,20 @@ select * from test where name in (1,5)
 //        		new MyThread(i+"").start();
     			
 //    			dbTableoneService.insertBatch(insertList);
-    			new SpringThreadBeachInsertDbOne(dbTableoneService,unintList).start();
-    			
+    			new SpringThreadBeachInsertDbOne(iDbConfigService,unintList,tableName,colNumsList).start();
+    			count.countDown();
     		}
+    		try {
+    			count.await();
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		//执行完成以后，filetype变成0
+    		/*User upuser = new User();
+        	upuser.setId(user.getId());
+        	upuser.setFileType(0);
+        	iUserService.updateById(upuser);*/
+        	
             System.err.println("是最后执行吗？？？？？？？？？？？？？？？？？？？？？？？");
             resultmap.put("xlsDataNums", list.size());
 //            resultmap.put("updateSize", updateSize);

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangzhixuan.mapper.DbConfigMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.wangzhixuan.model.DbTableone">
+		<id column="id" property="id" />
+		<result column="card_num" property="cardNum" />
+		<result column="id_card" property="idCard" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="address" property="address" />
+		<result column="sex" property="sex" />
+		<result column="minzu" property="minzu" />
+		<result column="rysx" property="rysx" />
+		<result column="country" property="country" />
+		<result column="country_cun" property="countryCun" />
+		<result column="cbzt" property="cbzt" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+	
+	
+	<select id="selectAllCount" resultType="java.lang.Integer" >
+	    select 
+			count(1)
+	    from db_tableone
+	  </select>
+	
+	
+	
+	<select id="selectExistNums" parameterType="string" resultType="string" >
+	    select 
+			id_card
+	    from db_tableone where 1=1 and id_card in 
+	    <foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+<!-- 			'${item}' -->
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	    
+	  </select>
+	  
+	  
+	  
+	  <update id="updateByIdCard" parameterType="com.wangzhixuan.model.DbTableone" >
+		    update db_tableone
+		    <set >
+		      <if test="idCard != null" >
+		        id_card = #{idCard,jdbcType=VARCHAR},
+		      </if>
+		      <if test="name != null" >
+		        name = #{name,jdbcType=VARCHAR},
+		      </if>
+		      <if test="birthday != null" >
+		        birthday = #{birthday,jdbcType=VARCHAR},
+		      </if>
+		      <if test="address != null" >
+		        address = #{address,jdbcType=VARCHAR},
+		      </if>
+		      <if test="sex != null" >
+		        sex = #{sex,jdbcType=VARCHAR},
+		      </if>
+		      <if test="minzu != null" >
+		        minzu = #{minzu,jdbcType=VARCHAR},
+		      </if>
+		      <if test="rysx != null" >
+		        rysx = #{rysx,jdbcType=VARCHAR},
+		      </if>
+		      <if test="country != null" >
+		        country = #{country,jdbcType=VARCHAR},
+		      </if>
+		      <if test="countryCun != null" >
+		        country_cun = #{countryCun,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cbzt != null" >
+		        cbzt = #{cbzt,jdbcType=VARCHAR},
+		      </if>
+		      <if test="createTime != null" >
+		        create_time = #{createTime,jdbcType=TIMESTAMP},
+		      </if>
+		    </set>
+		    where
+		    
+		    card_num = #{cardNum,jdbcType=VARCHAR}
+	  </update>
+	  
+	  
+	  
+	  
+	  <update id="updateBatchByIdCard" parameterType="com.wangzhixuan.model.DbTableone">
+        <!-- 接收list参数，循环着组装sql语句，注意for循环的写法
+             separator=";" 代表着每次循环完，在sql后面放一个分号
+             item="cus" 循环List的每条的结果集
+             collection="list" list 即为 map传过来的参数key -->
+        <foreach collection="list" separator=";" item="cus" open="" close="" >
+            update db_tableone
+		    <set >
+		      <if test="cus.idCard != null" >
+		        id_card = #{cus.idCard,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.name != null" >
+		        name = #{cus.name,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.birthday != null" >
+		        birthday = #{cus.birthday,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.address != null" >
+		        address = #{cus.address,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.sex != null" >
+		        sex = #{cus.sex,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.minzu != null" >
+		        minzu = #{cus.minzu,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.rysx != null" >
+		        rysx = #{cus.rysx,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.country != null" >
+		        country = #{cus.country,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.countryCun != null" >
+		        country_cun = #{cus.countryCun,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.cbzt != null" >
+		        cbzt = #{cus.cbzt,jdbcType=VARCHAR},
+		      </if>
+		      <if test="cus.createTime != null" >
+		        create_time = #{cus.createTime,jdbcType=TIMESTAMP},
+		      </if>
+		    </set>
+		    where
+		    
+		    card_num = #{cus.cardNum,jdbcType=VARCHAR}
+        </foreach>
+		</update>
+		
+		
+		
+		
+		
+		
+		<insert id ="insertBatch" parameterType="map" >
+	    insert into ${tableName} 
+	    
+<!-- 	    比如这里有4个 col0  col1  col2  col3 -->
+	    <foreach collection="colNumsList" index="index" item="item" open="("
+			separator="," close=")">
+			col${index}
+		</foreach>
+		
+	    values 
+	    
+	    
+<!-- 	    这里的list是数据的list  比如数据有13条，这里的index就是13 -->
+	    <foreach collection="list" index="index" item="item" separator="," >
+<!-- 			#{item.col${index}} -->
+			<foreach collection="colNumsList" index="indexli" item="itemli" open="("
+			separator="," close=")">
+			#{item.col${indexli}}
+			</foreach>
+		</foreach>
+		
+<!-- 		(1,1,1,1),(2,2,2,2) -->
+		
+     </insert >
+		
+		
+</mapper>

@@ -29,6 +29,7 @@ public class FileUploadUtil extends BaseController{
 				// 循环获取file数组中得文件
 				for (int i = 0; i < files.length; i++) {
 					MultipartFile file = files[i];
+					
 					UUID.randomUUID().toString().replace("-", "");
 
 					System.out.println(file.getContentType() + "*" + file.getName() + "*" + file.getSize());

@@ -1,26 +1,37 @@
 package com.wangzhixuan.controller;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
+import com.wangzhixuan.model.DbConfigTable;
 import com.wangzhixuan.model.DbTableone;
+import com.wangzhixuan.service.IDbConfigService;
 import com.wangzhixuan.service.IDbTableoneService;
 import com.wangzhixuan.util.BreakList;
 
 public class SpringThreadBeachInsertDbOne extends Thread {
 	
 //	@Autowired
-    private IDbTableoneService dbTableoneService;
+    private IDbConfigService iDbConfigService;
     
-	private List<DbTableone> dbTableOneList ;
+	private List<DbConfigTable> dbTableOneList ;
 	
-	public SpringThreadBeachInsertDbOne(List<DbTableone> insertList){
+	//要导入的表名
+	private String tableName;
+	
+	//列数
+	private LinkedList<Integer> colNumsList;
+	
+	public SpringThreadBeachInsertDbOne(List<DbConfigTable> insertList){
 		this.dbTableOneList = insertList;
 	}
 	
-	public SpringThreadBeachInsertDbOne(IDbTableoneService dbTableoneService,List<DbTableone> insertList){
-		this.dbTableoneService = dbTableoneService;
+	public SpringThreadBeachInsertDbOne(IDbConfigService iDbConfigService,List<DbConfigTable> insertList,String tableName, LinkedList<Integer> colNumsList){
+		this.iDbConfigService = iDbConfigService;
 		this.dbTableOneList = insertList;
+		this.tableName = tableName;
+		this.colNumsList = colNumsList;
 	}
 	
 	public void run() {
@@ -28,11 +39,11 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 		
 		int shiwuSize = 10;
 		if(dbTableOneList.size()>shiwuSize){
-			List<List<DbTableone>> numsList = BreakList.createListBySizeNum(dbTableOneList, shiwuSize);
+			List<List<DbConfigTable>> numsList = BreakList.createListBySizeNum(dbTableOneList, shiwuSize);
 			for (int i = 0; i < numsList.size(); i++) {
 				// 开始时间
 				Long begin = new Date().getTime();
-				dbTableoneService.insertBatch(numsList.get(i));
+				iDbConfigService.insertBatch(numsList.get(i),tableName,colNumsList);
 				// 开始时间
 				Long end = new Date().getTime();
 				// 耗时
@@ -41,7 +52,7 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 		}else{
 			// 开始时间
 			Long begin = new Date().getTime();
-			dbTableoneService.insertBatch(dbTableOneList);
+			iDbConfigService.insertBatch(dbTableOneList,tableName,colNumsList);
 			// 开始时间
 			Long end = new Date().getTime();
 			// 耗时
