@@ -29,7 +29,7 @@
     
     //对比
     function duibi(){
-    	$.ajax({
+    	/* $.ajax({
 			type : "post",
 			url : "${pageContext.request.contextPath}/dbexport/dbtablesdata",
 			data : {
@@ -43,7 +43,20 @@
 			error : function() {
 				alert("网络错误！");
 			}
-		});
+		}); */
+    	
+    	var url = "${pageContext.request.contextPath}/dbexport/dbtablesdata";
+    	 
+        var sourcetype = $('#sourcetype').val();
+        var dbtype = $('#dbtype').val();
+ 
+        var form = $("<form></form>").attr("action", url).attr("method", "post");
+ 
+        form.append($("<input></input>").attr("type", "hidden").attr("name", "sourcetype").attr("value", sourcetype));
+        form.append($("<input></input>").attr("type", "hidden").attr("name", "dbtype").attr("value", dbtype));
+ 
+        form.appendTo('body').submit().remove();
+    	
     	
     }
     

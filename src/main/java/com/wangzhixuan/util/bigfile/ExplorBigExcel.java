@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -52,7 +53,7 @@ public class ExplorBigExcel {
         out.close();
     }
 	
-	public static void exportExcel(List<DbConfigTable> list,String tableEnd,String realPath) throws IOException {
+	public static String exportExcel(List<DbConfigTable> list,String tableEnd,String realPath) throws IOException {
         XSSFWorkbook workbook1 = new XSSFWorkbook(new FileInputStream(new File(realPath+"/exportExcelTemplent/daochTemp.xlsx")));
         SXSSFWorkbook sxssfWorkbook = new SXSSFWorkbook(workbook1, 100);
         Sheet first = sxssfWorkbook.getSheetAt(0);
@@ -78,10 +79,13 @@ public class ExplorBigExcel {
             }
         }
         System.out.println("1");
-//        FileOutputStream out = new FileOutputStream("exportExcel/exportExcel.xlsx");
-        FileOutputStream out = new FileOutputStream("D://daochudata.xlsx");
+//        FileOutputStream out = new FileOutputStream("D://daochudata.xlsx");
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        String shengchengFilePath = realPath+File.separator+"downloadExcels"+File.separator+uuid+".xlsx";
+        FileOutputStream out = new FileOutputStream(shengchengFilePath);
         sxssfWorkbook.write(out);
         out.close();
+        return shengchengFilePath;
     }
 	
 }

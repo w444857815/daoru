@@ -52,7 +52,18 @@
     	var files = document.getElementById("uploadFileonea").files;
 		//文件数量
 		//alert(files.length);
-		
+		if(files.length==0){
+			alert("请选择文件");
+			return;
+		}
+		var selfile = $('#uploadFileonea').val();
+		var fileend = selfile.substring(selfile.length-4,selfile.length);
+		//alert(fileend);
+		if(fileend=="xlsx"||fileend==".xls"){
+		}else{
+			alert("只能选择excel文件");
+			return;
+		}
 		//for(let i=0;i<files.length;i++){
 			var formData = new FormData();
 			formData.append("file",files[0]);
@@ -188,7 +199,7 @@
                 	</td>
                     <td style="width: 100px;">导入第一张表:</td>
                     <td>
-                    	<input type="file" name="file" multiple id="uploadFileonea"/>
+                    	<input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple id="uploadFileonea"/>
                     </td>
                     <td>
                         <a href="javascript:void(0);" class="easyui-linkbutton"  onclick="upfilefile();" id="upbutton">上传</a>

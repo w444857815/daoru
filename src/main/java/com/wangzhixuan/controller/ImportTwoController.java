@@ -213,19 +213,23 @@ public class ImportTwoController extends BaseController {
         	}*/
         	List<String[]> list = new LinkedList<>();
         	//如果是xls的，就用jxl的，如果不是，走下面的
-            if(true){
+        	
+            if(filepath.endsWith(".xls")){
             	Workbook rwb=Workbook.getWorkbook(new File(filepath));
                 Sheet rs=rwb.getSheet(0);//或者rwb.getSheet(0)
                 int clos=rs.getColumns();//得到所有的列
                 int rows=rs.getRows();//得到所有的行
                 for (int i = 0; i < rows; i++) {
-                	String shuzuStr = "";
+//                	String shuzuStr = "";
+                	LinkedList<String> listxlsshuju=new LinkedList<String>();
                 	for (int j = 0; j < clos; j++) {
-                		shuzuStr+=rs.getCell(j, i).getContents()+",";
-                		
+//                		shuzuStr+=rs.getCell(j, i).getContents()+",";
+                		listxlsshuju.add(rs.getCell(j, i).getContents());
 					}
-                	String[] args = {shuzuStr};
-                	list.add(args);
+                	String[] strings = new String[listxlsshuju.size()];
+                	listxlsshuju.toArray(strings);
+//                	String[] args = {shuzuStr};
+                	list.add(strings);
 				}
             }
             Long begin1 = new Date().getTime();
@@ -246,6 +250,12 @@ public class ImportTwoController extends BaseController {
     		String tableName = TableUtil.tableName(acount.getLoginName(), tableEnd);
     		//列数
     		int colNums = colsNum;
+    		if(tableEnd.startsWith("one")){
+    			colNums = 11;
+    		}else{
+    			colNums = 28;
+    		}
+    		
     		LinkedList<Integer> colNumsList = new LinkedList<>();
     		for (int i = 0; i < colNums; i++) {
     			colNumsList.add(i);

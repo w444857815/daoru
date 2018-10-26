@@ -1,5 +1,6 @@
 package com.wangzhixuan.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +26,7 @@ import com.wangzhixuan.commons.base.BaseController;
 import com.wangzhixuan.commons.shiro.ShiroUser;
 import com.wangzhixuan.model.DbConfigTable;
 import com.wangzhixuan.service.IDbConfigService;
+import com.wangzhixuan.util.FileUploadUtil;
 import com.wangzhixuan.util.TableUtil;
 import com.wangzhixuan.util.bigfile.ExplorBigExcel;
 
@@ -76,8 +82,7 @@ public class DbExportController extends BaseController {
     * @version V1.0
     */
     @PostMapping("/dbtablesdata")
-    @ResponseBody
-    public Map<String,Object> dbTablesData(String sourcetype,String dbtype,HttpServletRequest request) {
+    public ResponseEntity<byte[]> dbTablesData(String sourcetype,String dbtype,HttpServletRequest request) {
     	ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
     	String[] arys = sourcetype.split("@");
     	String tableqian = TableUtil.tableName(acount.getLoginName(), arys[0]); //
@@ -118,15 +123,27 @@ public class DbExportController extends BaseController {
     	
     	List<DbConfigTable> list = iDbConfigService.selectdbTablesData(csmap);
     	System.out.println(list);
+    	String downFilePath = "";
     	try {
     		String realPath=request.getServletContext().getRealPath("/");
-			ExplorBigExcel.exportExcel(list, "one",realPath);
+			downFilePath = ExplorBigExcel.exportExcel(list, "one",realPath);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
-    	return null;
+    	ResponseEntity<byte[]> responseEntity = null;
+		try {
+			byte[] bytes = FileUploadUtil.File2byte(downFilePath);
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.setContentDispositionFormData("attachment", "对比结果.xlsx");
+			httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			responseEntity = new ResponseEntity<byte[]>(bytes, httpHeaders, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseEntity;
     }
     
     
