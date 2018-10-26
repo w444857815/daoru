@@ -6,7 +6,11 @@
     
     //导入信息 
     function importData(){
-    	
+    	if($('#filepathonea').val()==''){
+    		alert("请先上传文件");
+    		return;
+    	}
+    	$('#importDatabut').linkbutton('disable');
     	$.ajax({
 			type : "post",
 			url : "${pageContext.request.contextPath}/importtwo/importdata",

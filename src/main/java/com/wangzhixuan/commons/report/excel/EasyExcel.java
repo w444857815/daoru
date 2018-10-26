@@ -42,6 +42,7 @@ import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import com.wangzhixuan.commons.utils.StringUtils;
+import com.wangzhixuan.model.DbConfigTable;
 
 /**
  *
@@ -145,7 +146,8 @@ public final class EasyExcel implements Closeable {
 	public <T> List<T> parse(Class<T> clazz) {
 		List<T> resultList = null;
 		try {
-			Sheet sheet = workbook.getSheet(this.sheetName);
+//			Sheet sheet = workbook.getSheet(this.sheetName);
+			Sheet sheet = workbook.getSheetAt(0);
 			if (null != sheet) {
 				resultList = new ArrayList<T>(sheet.getLastRowNum() - 1);
 				Row row = sheet.getRow(this.startRow);
@@ -270,6 +272,7 @@ public final class EasyExcel implements Closeable {
 		} else {
 			workbook = WorkbookFactory.create(file);
 		}
+		workbook.close();
 		return workbook;
 	}
 	
@@ -439,4 +442,20 @@ public final class EasyExcel implements Closeable {
 	public void setSheetName(String sheetName) {
 		this.sheetName = sheetName;
 	}
+	
+	public static void main(String[] args) throws InvalidFormatException, IOException {
+		EasyExcel fastExcel = new EasyExcel("D:/er.xls");
+//        fastExcel.setSheetName("活动信息数据");
+        List<DbConfigTable> tests = fastExcel.parse(DbConfigTable.class);
+        if(null != tests && !tests.isEmpty()) {
+            for(DbConfigTable myTest : tests) {
+              //  LOG.debug("记录:{}", myTest.toString());
+                System.out.println(myTest.getCol0());
+            }
+        } else {
+            //LOG.debug("没有结果");
+        	System.out.println("没有结果");
+        }
+	}
+	
 }

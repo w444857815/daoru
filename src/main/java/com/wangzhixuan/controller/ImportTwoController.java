@@ -1,5 +1,6 @@
 package com.wangzhixuan.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +35,9 @@ import com.wangzhixuan.util.FileUploadUtil;
 import com.wangzhixuan.util.TableUtil;
 import com.wangzhixuan.util.XLSXCovertCSVReader;
 import com.wangzhixuan.util.reflectUtil;
+
+import jxl.Sheet;
+import jxl.Workbook;
 
 /**
  * @description：登录退出
@@ -207,9 +211,25 @@ public class ImportTwoController extends BaseController {
         	if(user.getFileType()!=1){
         		return getFailRtn("还有未导入的文件，请先导入");
         	}*/
-            
+        	List<String[]> list = new LinkedList<>();
+        	//如果是xls的，就用jxl的，如果不是，走下面的
+            if(true){
+            	Workbook rwb=Workbook.getWorkbook(new File(filepath));
+                Sheet rs=rwb.getSheet(0);//或者rwb.getSheet(0)
+                int clos=rs.getColumns();//得到所有的列
+                int rows=rs.getRows();//得到所有的行
+                for (int i = 0; i < rows; i++) {
+                	String shuzuStr = "";
+                	for (int j = 0; j < clos; j++) {
+                		shuzuStr+=rs.getCell(j, i).getContents()+",";
+                		
+					}
+                	String[] args = {shuzuStr};
+                	list.add(args);
+				}
+            }
             Long begin1 = new Date().getTime();
-            List<String[]> list = XLSXCovertCSVReader.readerExcel(
+            list = XLSXCovertCSVReader.readerExcel(
             		filepath,
 					"随便", colsNum);
             Long end1 = new Date().getTime();
