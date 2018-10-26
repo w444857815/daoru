@@ -33,6 +33,7 @@ import com.wangzhixuan.service.IUserService;
 import com.wangzhixuan.util.DateUtil;
 import com.wangzhixuan.util.FileUploadUtil;
 import com.wangzhixuan.util.XLSXCovertCSVReader;
+import com.wangzhixuan.util.reflectUtil;
 import com.wangzhixuan.util.bigfile.XLSX2CSV;
 
 import jxl.Sheet;
@@ -507,7 +508,14 @@ select * from test where name in (1,5)
         			//System.out.print(k+"    ");
         			
     				DbConfigTable dbConfigTable = new DbConfigTable();
-                    dbConfigTable.setCol0(record[0]);
+    				
+    				int colsSize = record.length;
+    				for (int j = 0; j < colsSize; j++) {
+    					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]);
+					}
+    				
+    				
+                    /*dbConfigTable.setCol0(record[0]);
                     dbConfigTable.setCol1(record[1]);
                     dbConfigTable.setCol2(record[2]);
                     dbConfigTable.setCol3(record[3]);
@@ -517,7 +525,7 @@ select * from test where name in (1,5)
                     dbConfigTable.setCol7(record[7]);
                     dbConfigTable.setCol8(record[8]);
                     dbConfigTable.setCol9(record[9]);
-                    dbConfigTable.setCol10(record[10]);
+                    dbConfigTable.setCol10(record[10]);*/
                     
                 	
                     /*allmapData.put(idCard, dbTableone);
@@ -538,6 +546,13 @@ select * from test where name in (1,5)
             			//System.out.print(k+"    ");
             			
     					DbConfigTable dbConfigTable = new DbConfigTable();
+    					
+    					int colsSize = record.length;
+        				for (int j = 0; j < colsSize; j++) {
+        					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]);
+    					}
+    					
+    					/*
                         dbConfigTable.setCol0(record[0]);
                         dbConfigTable.setCol1(record[1]);
                         dbConfigTable.setCol2(record[2]);
@@ -548,7 +563,7 @@ select * from test where name in (1,5)
                         dbConfigTable.setCol7(record[7]);
                         dbConfigTable.setCol8(record[8]);
                         dbConfigTable.setCol9(record[9]);
-                        dbConfigTable.setCol10(record[10]);
+                        dbConfigTable.setCol10(record[10]);*/
                     	
                         /*allmapData.put(idCard, dbTableone);
                         keylist.add(idCard);
