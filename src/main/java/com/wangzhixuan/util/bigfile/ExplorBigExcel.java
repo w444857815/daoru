@@ -64,6 +64,14 @@ public class ExplorBigExcel {
         }else{
         	col = 28;
         }
+        /*Row firstrow = first.createRow(0);
+        firstrow.createCell(0).setCellValue("column" + 0);
+        firstrow.createCell(1).setCellValue("column" + 1);
+        firstrow.createCell(2).setCellValue("column" + 2);
+        firstrow.createCell(3).setCellValue("column" + 3);
+        firstrow.createCell(4).setCellValue("column" + 4);
+        firstrow.createCell(5).setCellValue("column" + 5);
+        firstrow.createCell(6).setCellValue("column" + 6);*/
         for (int i = 0; i < size; i++) {
             Row row = first.createRow(i);
             DbConfigTable dbConfigTable = list.get(i);
