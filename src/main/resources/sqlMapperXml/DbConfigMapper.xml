@@ -3,20 +3,39 @@
 <mapper namespace="com.wangzhixuan.mapper.DbConfigMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.wangzhixuan.model.DbTableone">
+	<resultMap id="BaseResultMap" type="com.wangzhixuan.model.DbConfigTable">
 		<id column="id" property="id" />
-		<result column="card_num" property="cardNum" />
-		<result column="id_card" property="idCard" />
-		<result column="name" property="name" />
-		<result column="birthday" property="birthday" />
-		<result column="address" property="address" />
-		<result column="sex" property="sex" />
-		<result column="minzu" property="minzu" />
-		<result column="rysx" property="rysx" />
-		<result column="country" property="country" />
-		<result column="country_cun" property="countryCun" />
-		<result column="cbzt" property="cbzt" />
-		<result column="create_time" property="createTime" />
+		<result column="col0" property="col0" />
+		<result column="col1" property="col1" />
+		<result column="col2" property="col2" />
+		<result column="col3" property="col3" />
+		<result column="col4" property="col4" />
+		<result column="col5" property="col5" />
+		<result column="col6" property="col6" />
+		<result column="col7" property="col7" />
+		<result column="col8" property="col8" />
+		<result column="col9" property="col9" />
+		<result column="col10" property="col10" />
+		<result column="col11" property="col11" />
+		<result column="col12" property="col12" />
+		<result column="col13" property="col13" />
+		<result column="col14" property="col14" />
+		<result column="col15" property="col15" />
+		<result column="col16" property="col16" />
+		<result column="col17" property="col17" />
+		<result column="col18" property="col18" />
+		<result column="col19" property="col19" />
+		<result column="col20" property="col20" />
+		<result column="col21" property="col21" />
+		<result column="col22" property="col22" />
+		<result column="col23" property="col23" />
+		<result column="col24" property="col24" />
+		<result column="col25" property="col25" />
+		<result column="col26" property="col26" />
+		<result column="col27" property="col27" />
+		<result column="col28" property="col28" />
+		<result column="col29" property="col29" />
+				
 	</resultMap>
 	
 	
@@ -166,4 +185,27 @@
      </insert >
 		
 		
+<!-- 		删表信息 -->
+		<update id="truncateTable">
+		truncate ${tableName}
+		</update>
+		
+		
+		
+		<select id="selectEveryCount" resultType="Integer" >
+			select count(1) from db_${loginName}_one_a
+			union all	
+			select count(1) from db_${loginName}_one_b
+			union all	
+			select count(1) from db_${loginName}_two_a
+			union all	
+			select count(1) from db_${loginName}_two_b
+	  </select>
+	  
+	  
+	  
+	  <select id="selectdbTablesData" resultMap="BaseResultMap">
+	  	  select * from ${tableqian} where ${col_qian} not in (select ${col_hou} from ${tablehou})
+	  </select>
+	  
 </mapper>

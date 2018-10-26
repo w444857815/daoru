@@ -242,7 +242,7 @@ public class XLSX2CSV {
         XLSX2CSV xlsx2csv = new XLSX2CSV(p,  4);*/  
     	Long begin = new Date().getTime();
 //        List<String[]>list=getRecords("D://zhuanmen.xlsx",12);  
-        List<String[]>list=getRecords("D://kong.xlsx",11);  
+        List<String[]>list=getRecords("D://er.xlsx",11);  
      // 结束时间
  		Long end = new Date().getTime();
  		// 耗时

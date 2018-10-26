@@ -5,6 +5,7 @@ import com.wangzhixuan.model.DbTableone;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.service.IService;
 
@@ -53,5 +54,29 @@ public interface IDbConfigService extends IService<DbConfigTable> {
 	 * @param colNumsList 
 	 */
 	void insertBatch(List<DbConfigTable> entityList, String tableName, LinkedList<Integer> colNumsList);
+	/**
+	 * 删表信息
+	 * @Title:IDbConfigService.java
+	 * @Package com.wangzhixuan.service
+	 * @Description:TODO
+	 * @author wangruwei
+	 * @date 2018年10月26日上午10:56:43
+	 * @version V1.0
+	 * @param tableEnd 
+	 */
+	void truncateTable(String tableEnd);
+	List<Integer> selectEveryCount(String loginName);
+	/**
+	 * 查询对比出来的数据
+	 * @Title:IDbConfigService.java
+	 * @Package com.wangzhixuan.service
+	 * @Description:TODO
+	 * @author wangruwei
+	 * @date 2018年10月26日下午2:38:02
+	 * @param csmap
+	 * @return
+	 * @version V1.0
+	 */
+	List<DbConfigTable> selectdbTablesData(Map<String, Object> csmap);
 	
 }

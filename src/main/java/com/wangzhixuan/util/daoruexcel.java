@@ -2,8 +2,8 @@ package com.wangzhixuan.util;
 
 import java.io.File;
 
-import jxl.Sheet;
-import jxl.Workbook;
+//import jxl.Sheet;
+//import jxl.Workbook;
 
 public class daoruexcel {
 	public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class daoruexcel {
 
 	private static void daoru() {
 //		List<StuEntity> list=new ArrayList<StuEntity>();
-		
+		/*
 		File file = new File("D:\\test.xls");
         try {
             Workbook rwb=Workbook.getWorkbook(file);
@@ -36,6 +36,6 @@ public class daoruexcel {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } 
+        } */
 	}
 }

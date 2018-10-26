@@ -2,6 +2,7 @@ package com.wangzhixuan.service.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,23 @@ public class DbConfigServiceImpl extends ServiceImpl<DbConfigMapper, DbConfigTab
 	@Override
 	public void insertBatch(List<DbConfigTable> entityList, String tableName, LinkedList<Integer> colNumsList) {
 		dbConfigMapper.insertBatch(entityList,tableName,colNumsList);
+	}
+
+	@Override
+	public void truncateTable(String tableEnd) {
+		dbConfigMapper.truncateTable(tableEnd);
+	}
+
+	@Override
+	public List<Integer> selectEveryCount(String loginName) {
+		List<Integer> list = dbConfigMapper.selectEveryCount(loginName);
+		return list;
+	}
+
+	@Override
+	public List<DbConfigTable> selectdbTablesData(Map<String, Object> csmap) {
+		List<DbConfigTable> list = dbConfigMapper.selectdbTablesData(csmap);
+		return list;
 	}
 	
 	

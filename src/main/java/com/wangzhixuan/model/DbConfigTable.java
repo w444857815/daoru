@@ -8,7 +8,8 @@ public class DbConfigTable implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private int id;
+	
 	private String col0;
 	private String col1;
 	private String col2;
@@ -39,6 +40,17 @@ public class DbConfigTable implements Serializable {
 	private String col27;
 	private String col28;
 	private String col29;
+
+	
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getCol0() {
 		return col0;

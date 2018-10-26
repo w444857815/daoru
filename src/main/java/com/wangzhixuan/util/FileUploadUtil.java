@@ -11,12 +11,13 @@ import com.wangzhixuan.commons.base.BaseController;
 
 public class FileUploadUtil extends BaseController{
 	
-	public Map<String, Object> fileUpload(MultipartFile[] files
+	public Map<String, Object> fileUpload(MultipartFile[] files, String realPath
 			) throws IOException {
 
 		long startTime = System.currentTimeMillis();
 		String fileSavePath = "a";
-		File pathFile = new File("E:\\" + fileSavePath);
+//		File pathFile = new File("E:\\" + fileSavePath);
+		File pathFile = new File(realPath);
 		String filePath = "";
 
 		if (!pathFile.exists() && !pathFile.isDirectory()) {
@@ -32,10 +33,18 @@ public class FileUploadUtil extends BaseController{
 					
 					UUID.randomUUID().toString().replace("-", "");
 
-					System.out.println(file.getContentType() + "*" + file.getName() + "*" + file.getSize());
+					System.out.println(file.getContentType() + "*" + file.getName() + "*" + file.getSize()+"*");
 
 					// 这个方法最快
-					filePath = "E:\\" + fileSavePath + "\\" + file.getOriginalFilename();
+					//filePath = "E:\\" + fileSavePath + "\\" + file.getOriginalFilename();
+					String filename = file.getOriginalFilename();
+					int dot = filename.lastIndexOf('.'); 
+					String houzhui = "";
+		            if ((dot >-1) && (dot < (filename.length() - 1))) { 
+		            	houzhui = filename.substring(dot);
+		            }
+					
+					filePath = realPath +File.separator+ UUID.randomUUID().toString().replace("-", "")+houzhui;
 					file.transferTo(new File(filePath));
 
 				}
