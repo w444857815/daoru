@@ -72,7 +72,9 @@ public class ExplorBigExcel {
         firstrow.createCell(4).setCellValue("column" + 4);
         firstrow.createCell(5).setCellValue("column" + 5);
         firstrow.createCell(6).setCellValue("column" + 6);*/
+        System.out.println("开始");
         for (int i = 0; i < size; i++) {
+        	System.out.println("写入第"+i+"行");
             Row row = first.createRow(i);
             DbConfigTable dbConfigTable = list.get(i);
             for (int j = 0; j < col; j++) {
@@ -86,7 +88,7 @@ public class ExplorBigExcel {
                 }*/
             }
         }
-        System.out.println("1");
+        System.out.println("结束");
 //        FileOutputStream out = new FileOutputStream("D://daochudata.xlsx");
         String uuid = UUID.randomUUID().toString().replace("-", "");
         String qianPath = realPath+File.separator+"downloadExcels";
@@ -99,6 +101,8 @@ public class ExplorBigExcel {
         String shengchengFilePath = qianPath+File.separator+uuid+".xlsx";
         FileOutputStream out = new FileOutputStream(shengchengFilePath);
         sxssfWorkbook.write(out);
+        //关闭，原先这一句没有
+        sxssfWorkbook.close();
         out.close();
         return shengchengFilePath;
     }

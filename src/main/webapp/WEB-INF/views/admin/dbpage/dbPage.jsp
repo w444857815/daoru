@@ -44,7 +44,8 @@
 				alert("网络错误！");
 			}
 		}); */
-    	
+ 		$('#upbutton').linkbutton('disable');
+		$('#wenzi').html("对比数据量大的话需要的时间很长，请勿刷新界面，导出成功界面会弹出下载框");
     	var url = "${pageContext.request.contextPath}/dbexport/dbtablesdata";
     	 
         var sourcetype = $('#sourcetype').val();
@@ -78,9 +79,9 @@
             				<option value="one_a@two_a">表一A对比表二A</option>
             				<option value="one_a@two_b">表一A对比表二B</option>
 <!--             				其实下面三个也可以，只是就跟上面的重复了 -->
-<!--             				<option value="two_a@one_a">表二A对比表一A</option> -->
-<!--             				<option value="two_a@one_b">表二A对比表一B</option> -->
-<!--             				<option value="two_a@two_b">表二A对比表二B</option> -->
+            				<option value="two_a@one_a">表二A对比表一A</option>
+            				<option value="two_a@one_b">表二A对比表一B</option>
+            				<option value="two_a@two_b">表二A对比表二B</option>
             			</select>
             		</td>
             		<td>
@@ -94,6 +95,7 @@
             		</td>
             		<td>
             			<a href="javascript:void(0);" class="easyui-linkbutton"  onclick="duibi();" id="upbutton">对比并导出</a>
+            			<span id="wenzi"></span>
             		</td>
             	</tr>
             </table>

@@ -122,11 +122,11 @@ public class DbExportController extends BaseController {
     	}
     	
     	List<DbConfigTable> list = iDbConfigService.selectdbTablesData(csmap);
-    	System.out.println(list);
+    	//System.out.println(list);
     	String downFilePath = "";
     	try {
     		String realPath=request.getServletContext().getRealPath("/");
-			downFilePath = ExplorBigExcel.exportExcel(list, "one",realPath);
+			downFilePath = ExplorBigExcel.exportExcel(list, tableqian,realPath);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
