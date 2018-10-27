@@ -46,19 +46,19 @@
             			****
             		</td>
             		<td>
-            			表二B中有<span id="one_b">${one_b_nums }</span>条数据
+            			表一B中有<span id="one_b">${one_b_nums }</span>条数据
             		</td>
             		<td>
-            			<a href="javascript:void(0);" class="easyui-linkbutton"  onclick="deldata('one_b');" id="upbutton">删除表二B中数据   </a>
+            			<a href="javascript:void(0);" class="easyui-linkbutton"  onclick="deldata('one_b');" id="upbutton">删除表一B中数据   </a>
             		</td>
             		<td>
             			****
             		</td>
             		<td>
-            			表一A中有<span id="two_a">${two_a_nums }</span>条数据
+            			表二A中有<span id="two_a">${two_a_nums }</span>条数据
             		</td>
             		<td>
-            			<a href="javascript:void(0);" class="easyui-linkbutton"  onclick="deldata('two_a');" id="upbutton">删除表一A中数据   </a>
+            			<a href="javascript:void(0);" class="easyui-linkbutton"  onclick="deldata('two_a');" id="upbutton">删除表二A中数据   </a>
             		</td>
             		<td>
             			****

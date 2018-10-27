@@ -89,7 +89,14 @@ public class ExplorBigExcel {
         System.out.println("1");
 //        FileOutputStream out = new FileOutputStream("D://daochudata.xlsx");
         String uuid = UUID.randomUUID().toString().replace("-", "");
-        String shengchengFilePath = realPath+File.separator+"downloadExcels"+File.separator+uuid+".xlsx";
+        String qianPath = realPath+File.separator+"downloadExcels";
+        File pathFile = new File(qianPath);
+
+		if (!pathFile.exists() && !pathFile.isDirectory()) {
+			pathFile.mkdirs();
+		}
+		
+        String shengchengFilePath = qianPath+File.separator+uuid+".xlsx";
         FileOutputStream out = new FileOutputStream(shengchengFilePath);
         sxssfWorkbook.write(out);
         out.close();

@@ -232,10 +232,19 @@ public class ImportTwoController extends BaseController {
                 	list.add(strings);
 				}
             }
+            
+          //列数
+    		int colNums = colsNum;
+    		if(tableEnd.startsWith("one")){
+    			colNums = 11;
+    		}else{
+    			colNums = 28;
+    		}
+            
             Long begin1 = new Date().getTime();
             list = XLSXCovertCSVReader.readerExcel(
             		filepath,
-					"随便", colsNum);
+					"随便", colNums);
             Long end1 = new Date().getTime();
             System.out.println("处理excel用了 " + (end1 - begin1) / 1000 + " s" + "");
             //直接定义第一行不是数据
@@ -248,13 +257,7 @@ public class ImportTwoController extends BaseController {
     		//定义表名
     		ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
     		String tableName = TableUtil.tableName(acount.getLoginName(), tableEnd);
-    		//列数
-    		int colNums = colsNum;
-    		if(tableEnd.startsWith("one")){
-    			colNums = 11;
-    		}else{
-    			colNums = 28;
-    		}
+    		
     		
     		LinkedList<Integer> colNumsList = new LinkedList<>();
     		for (int i = 0; i < colNums; i++) {
@@ -307,7 +310,8 @@ public class ImportTwoController extends BaseController {
     			}
     			System.out.println("处理第"+i+"个list结束");
     			
-    			iDbConfigService.insertBatch(unintList,tableName,colNumsList);
+    			//iDbConfigService.insertBatch(unintList,tableName,colNumsList);
+    			new SpringThreadBeachInsertDbOne(iDbConfigService,unintList,tableName,colNumsList).start();
     			count.countDown();
     		}
     		try {

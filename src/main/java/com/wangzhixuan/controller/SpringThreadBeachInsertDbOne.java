@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.wangzhixuan.model.DbConfigTable;
-import com.wangzhixuan.model.DbTableone;
 import com.wangzhixuan.service.IDbConfigService;
-import com.wangzhixuan.service.IDbTableoneService;
 import com.wangzhixuan.util.BreakList;
 
 public class SpringThreadBeachInsertDbOne extends Thread {
@@ -37,9 +35,12 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 	public void run() {
 		//定义几个列表，也就是分几次事物事物
 		
-		int shiwuSize = 10;
+		int shiwuSize = 100;
 		if(dbTableOneList.size()>shiwuSize){
-			List<List<DbConfigTable>> numsList = BreakList.createListBySizeNum(dbTableOneList, shiwuSize);
+			//不管里面有多少，都分shiwuSize个
+//			List<List<DbConfigTable>> numsList = BreakList.createListBySizeNum(dbTableOneList, shiwuSize);
+			//按每个里面有多少来分，比如有100个，这里的数字是5，那就是分20个
+			List<List<DbConfigTable>> numsList = BreakList.createListByUnitSize(dbTableOneList, shiwuSize);
 			for (int i = 0; i < numsList.size(); i++) {
 				// 开始时间
 				Long begin = new Date().getTime();

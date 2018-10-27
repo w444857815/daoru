@@ -197,7 +197,7 @@
                 			<option value="two_b">表二B中</option>
                 		</select>
                 	</td>
-                    <td style="width: 100px;">导入第一张表:</td>
+                    <td style="width: 100px;">选择文件:</td>
                     <td>
                     	<input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple id="uploadFileonea"/>
                     </td>
