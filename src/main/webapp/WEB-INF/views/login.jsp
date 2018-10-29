@@ -42,7 +42,7 @@
                     <a style="color: rgb(204, 204, 204);" href="javascript:;">忘记密码?</a>
                 </span>
                 <span style="float: right;">
-                    <a style="color: rgb(204, 204, 204); margin-right: 10px;" href="javascript:;">注册</a>
+<!--                     <a style="color: rgb(204, 204, 204); margin-right: 10px;" href="javascript:;">注册</a> -->
                     <a style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;" href="javascript:;" onclick="submitForm()">登录</a>
                 </span>
             </P>
