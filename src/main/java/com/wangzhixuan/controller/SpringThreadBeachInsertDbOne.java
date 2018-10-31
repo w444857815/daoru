@@ -33,8 +33,7 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 	}
 	
 	public void run() {
-		//定义几个列表，也就是分几次事物事物
-		
+		//这里定义的是每个里面放多少个，比如有1000个，这里是200，那就是分5次来插入
 		int shiwuSize = 100;
 		if(dbTableOneList.size()>shiwuSize){
 			//不管里面有多少，都分shiwuSize个

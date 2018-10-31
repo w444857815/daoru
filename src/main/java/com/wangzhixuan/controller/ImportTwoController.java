@@ -252,7 +252,7 @@ public class ImportTwoController extends BaseController {
             //定义总条数
     		int totalSize = list.size();
     		//定义线程数
-    		int threadNum = 1;
+    		int threadNum = 10;
     		CountDownLatch count = new CountDownLatch(threadNum);
     		//定义表名
     		ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
@@ -266,54 +266,108 @@ public class ImportTwoController extends BaseController {
     		//定义单元大小
     		int unitSize = totalSize/threadNum ;
     		//执行线程方法
-    		for (int i = 0; i <threadNum; i++) {
-    			List<DbConfigTable> unintList = new LinkedList<>();
-    			//这个优化
-    			int unitStart = unitSize*i;
-    			int unitEnd = unitSize*(i+1);
-    			System.out.println("处理第"+i+"个list开始");
-    			for (int k = unitStart; k < unitEnd; k++) {
-    				//System.out.println("分开所传的是"+k);
-    				
-    				String[] record = list.get(k);
-        			//System.out.print(k+"    ");
-        			
-    				DbConfigTable dbConfigTable = new DbConfigTable();
-    				
-    				int colsSize = record.length;
-    				for (int j = 0; j < colsSize; j++) {
-    					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]);
-					}
-    				
-    				
-                    unintList.add(dbConfigTable);
-    			}
-    			//这个就走1次，不用管
-    			if(i==(threadNum-1)){
-    				// 这个优化一下
-    				int unitStart_in = unitSize*(i+1);
-    				for (int k = unitStart_in; k < totalSize; k++) {
-    					//System.out.println("分开所传的是"+k);
-    					
-    					String[] record = list.get(k);
+    		//如果值是1，代表mybatis批量，如果是2，是jdbc的
+    		int type = 2;
+    		if(type ==1){
+    			for (int i = 0; i <threadNum; i++) {
+        			List<DbConfigTable> unintList = new LinkedList<>();
+        			//这个优化
+        			int unitStart = unitSize*i;
+        			int unitEnd = unitSize*(i+1);
+        			System.out.println("处理第"+i+"个list开始");
+        			for (int k = unitStart; k < unitEnd; k++) {
+        				//System.out.println("分开所传的是"+k);
+        				
+        				String[] record = list.get(k);
             			//System.out.print(k+"    ");
             			
-    					DbConfigTable dbConfigTable = new DbConfigTable();
-    					
-    					int colsSize = record.length;
+        				DbConfigTable dbConfigTable = new DbConfigTable();
+        				
+        				int colsSize = record.length;
         				for (int j = 0; j < colsSize; j++) {
-        					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]);
+        					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]==null?"":record[j]);
     					}
-    					
+        				
+        				
                         unintList.add(dbConfigTable);
-    				}
-    			}
-    			System.out.println("处理第"+i+"个list结束");
-    			
-    			//iDbConfigService.insertBatch(unintList,tableName,colNumsList);
-    			new SpringThreadBeachInsertDbOne(iDbConfigService,unintList,tableName,colNumsList).start();
-    			count.countDown();
+        			}
+        			//这个就走1次，不用管
+        			if(i==(threadNum-1)){
+        				// 这个优化一下
+        				int unitStart_in = unitSize*(i+1);
+        				for (int k = unitStart_in; k < totalSize; k++) {
+        					//System.out.println("分开所传的是"+k);
+        					
+        					String[] record = list.get(k);
+                			//System.out.print(k+"    ");
+                			
+        					DbConfigTable dbConfigTable = new DbConfigTable();
+        					
+        					int colsSize = record.length;
+            				for (int j = 0; j < colsSize; j++) {
+            					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]==null?"":record[j]);
+        					}
+        					
+                            unintList.add(dbConfigTable);
+        				}
+        			}
+        			System.out.println("处理第"+i+"个list结束");
+        			
+        			//iDbConfigService.insertBatch(unintList,tableName,colNumsList);
+        			new SpringThreadBeachInsertDbOne(iDbConfigService,unintList,tableName,colNumsList).start();
+        			count.countDown();
+        		}
+    		}else{
+    			for (int i = 0; i <threadNum; i++) {
+    				List<DbConfigTable> unintList = new LinkedList<>();
+        			//这个优化
+        			int unitStart = unitSize*i;
+        			int unitEnd = unitSize*(i+1);
+        			System.out.println("处理第"+i+"个list开始");
+        			for (int k = unitStart; k < unitEnd; k++) {
+        				//System.out.println("分开所传的是"+k);
+        				
+        				String[] record = list.get(k);
+            			//System.out.print(k+"    ");
+            			
+        				DbConfigTable dbConfigTable = new DbConfigTable();
+        				
+        				int colsSize = record.length;
+        				for (int j = 0; j < colsSize; j++) {
+        					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]==null?"":record[j]);
+    					}
+        				
+        				
+                        unintList.add(dbConfigTable);
+        			}
+        			//这个就走1次，不用管
+        			if(i==(threadNum-1)){
+        				// 这个优化一下
+        				int unitStart_in = unitSize*(i+1);
+        				for (int k = unitStart_in; k < totalSize; k++) {
+        					//System.out.println("分开所传的是"+k);
+        					
+        					String[] record = list.get(k);
+                			//System.out.print(k+"    ");
+                			
+        					DbConfigTable dbConfigTable = new DbConfigTable();
+        					
+        					int colsSize = record.length;
+            				for (int j = 0; j < colsSize; j++) {
+            					reflectUtil.reflectset(dbConfigTable, "col"+j, record[j]==null?"":record[j]);
+        					}
+        					
+                            unintList.add(dbConfigTable);
+        				}
+        			}
+        			System.out.println("处理第"+i+"个list结束");
+        			
+        			//iDbConfigService.insertBatch(unintList,tableName,colNumsList);
+        			new SpringThreadBeachInsertDbOneJDBC(iDbConfigService,tableName,colNumsList,unintList).start();
+        			count.countDown();
+        		}
     		}
+    		
     		try {
     			count.await();
     		} catch (InterruptedException e) {
