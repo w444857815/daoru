@@ -314,8 +314,9 @@ public class ImportTwoController extends BaseController {
         			System.out.println("处理第"+i+"个list结束");
         			
         			//iDbConfigService.insertBatch(unintList,tableName,colNumsList);
-        			new SpringThreadBeachInsertDbOne(iDbConfigService,unintList,tableName,colNumsList).start();
-        			count.countDown();
+        			new SpringThreadBeachInsertDbOne(iDbConfigService,unintList,tableName,colNumsList,count).start();
+        			//这个要放到线程的run里执行，不然就是俩线程，没用
+//        			count.countDown();
         		}
     		}else{
     			for (int i = 0; i <threadNum; i++) {
@@ -363,8 +364,9 @@ public class ImportTwoController extends BaseController {
         			System.out.println("处理第"+i+"个list结束");
         			
         			//iDbConfigService.insertBatch(unintList,tableName,colNumsList);
-        			new SpringThreadBeachInsertDbOneJDBC(iDbConfigService,tableName,colNumsList,unintList).start();
-        			count.countDown();
+        			new SpringThreadBeachInsertDbOneJDBC(iDbConfigService,tableName,colNumsList,unintList,count).start();
+        			//这个要放到线程的run里执行，不然就是俩线程，没用
+//        			count.countDown();
         		}
     		}
     		
@@ -379,7 +381,7 @@ public class ImportTwoController extends BaseController {
         	upuser.setFileType(0);
         	iUserService.updateById(upuser);*/
         	
-            System.err.println("是最后执行吗？？？？？？？？？？？？？？？？？？？？？？？");
+            System.out.println("是最后执行吗？？？？？？？？？？？？？？？？？？？？？？？");
 //            resultmap.put("xlsDataNums", list.size());
 ////            resultmap.put("updateSize", updateSize);
 //            resultmap.put("updateSize", 0);

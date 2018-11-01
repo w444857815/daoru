@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import com.wangzhixuan.model.DbConfigTable;
 import com.wangzhixuan.service.IDbConfigService;
@@ -29,12 +30,15 @@ public class SpringThreadBeachInsertDbOneJDBC extends Thread {
 	
 	private List<String[]> shuzuData;
 	
+	private CountDownLatch count;
 	
-	public SpringThreadBeachInsertDbOneJDBC(IDbConfigService iDbConfigService,String tableName, LinkedList<Integer> colNumsList,List<DbConfigTable> dbTableOneList){
+	
+	public SpringThreadBeachInsertDbOneJDBC(IDbConfigService iDbConfigService,String tableName, LinkedList<Integer> colNumsList,List<DbConfigTable> dbTableOneList, CountDownLatch count){
 		this.iDbConfigService = iDbConfigService;
 		this.tableName = tableName;
 		this.colNumsList = colNumsList;
 		this.dbTableOneList = dbTableOneList;
+		this.count = count;
 	}
 	
 
@@ -60,6 +64,7 @@ public class SpringThreadBeachInsertDbOneJDBC extends Thread {
 		// sql前缀
 		String prefix = "INSERT INTO "+tableName+" ";  
 		try {
+			
 			// 保存sql后缀
 			StringBuffer suffix = new StringBuffer();
 			// 设置事务为非自动提交
@@ -111,7 +116,7 @@ public class SpringThreadBeachInsertDbOneJDBC extends Thread {
 			}*/
 			
 			//每个放10000个，不知道分几个
-			List<List<DbConfigTable>> everylist = BreakList.createListByUnitSize(dbTableOneList, 5000);
+			List<List<DbConfigTable>> everylist = BreakList.createListByUnitSize(dbTableOneList, 10000);
 			System.out.println("分成了"+everylist.size()+"个");
 			for (int i = 0; i < everylist.size(); i++) {
 				String sql = prefix + colName + " VALUES ";
@@ -165,6 +170,7 @@ public class SpringThreadBeachInsertDbOneJDBC extends Thread {
 		Long end = new Date().getTime();
 		// 耗时
 		System.out.println("100万条数据插入花费时间 : " + (end - begin) / 1000 + " s" + "  插入完成");
+		count.countDown();
 	}
 	
 	public static void main(String[] args) {

@@ -3,6 +3,7 @@ package com.wangzhixuan.controller;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import com.wangzhixuan.model.DbConfigTable;
 import com.wangzhixuan.service.IDbConfigService;
@@ -21,15 +22,18 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 	//列数
 	private LinkedList<Integer> colNumsList;
 	
+	private CountDownLatch count;
+	
 	public SpringThreadBeachInsertDbOne(List<DbConfigTable> insertList){
 		this.dbTableOneList = insertList;
 	}
 	
-	public SpringThreadBeachInsertDbOne(IDbConfigService iDbConfigService,List<DbConfigTable> insertList,String tableName, LinkedList<Integer> colNumsList){
+	public SpringThreadBeachInsertDbOne(IDbConfigService iDbConfigService,List<DbConfigTable> insertList,String tableName, LinkedList<Integer> colNumsList, CountDownLatch count){
 		this.iDbConfigService = iDbConfigService;
 		this.dbTableOneList = insertList;
 		this.tableName = tableName;
 		this.colNumsList = colNumsList;
+		this.count = count;
 	}
 	
 	public void run() {
@@ -58,6 +62,6 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 			// 耗时
 			System.out.println("数据插入花费时间 : " + (end - begin) / 1000 + " s" + "  插入完成");
 		}
-		
+		count.countDown();
 	}
 }

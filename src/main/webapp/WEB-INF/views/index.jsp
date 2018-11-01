@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/commons/basejs.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>好嘞后台</title>
+<title>数据清洗平台</title>
 <script type="text/javascript">
     var index_tabs;
     var indexTabsMenu;
