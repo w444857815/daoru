@@ -281,10 +281,12 @@ public class XLSXCovertCSVReader {
 				if (thisStr == null || "".equals(isCellNull)) {
 					isCellNull = true;// 设置单元格是否为空值
 				}
-				record[thisColumn] = thisStr;
-				// Update column
-				if (thisColumn > -1)
-					lastColumnNumber = thisColumn;
+				if(record.length>thisColumn){
+					record[thisColumn] = thisStr;
+					// Update column
+					if (thisColumn > -1)
+						lastColumnNumber = thisColumn;
+				}
 
 			} else if ("row".equals(name)) {
 
@@ -467,8 +469,8 @@ public class XLSXCovertCSVReader {
 		Long begin = new Date().getTime();
 		List<String[]> list = XLSXCovertCSVReader
 				.readerExcel(
-						"D:\\er.xls",
-						"Sheet1", 30);
+						"D:\\era30.xlsx",
+						"Sheet1.33", 3);
 		// 结束时间
  		Long end = new Date().getTime();
  		// 耗时
