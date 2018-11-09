@@ -470,7 +470,7 @@ public class XLSXCovertCSVReader {
 		List<String[]> list = XLSXCovertCSVReader
 				.readerExcel(
 						"D:\\era30.xlsx",
-						"Sheet1.33", 3);
+						"Sheet1.33", 30);
 		// 结束时间
  		Long end = new Date().getTime();
  		// 耗时

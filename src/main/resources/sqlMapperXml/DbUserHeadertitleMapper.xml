@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhixuan.mapper.DbUserHeadertitleMapper" >
+  <resultMap id="BaseResultMap" type="com.wangzhixuan.model.DbUserHeadertitle" >
+			 <id column="id" property="id" jdbcType="INTEGER" />
+			<result column="user_id" property="userId" jdbcType="INTEGER" />
+			<result column="table_type" property="tableType" jdbcType="INTEGER" />
+			<result column="header_title" property="headerTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+		id,
+		user_id,
+		table_type,
+		header_title
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_user_headertitle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from db_user_headertitle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangzhixuan.model.DbUserHeadertitle" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into db_user_headertitle (
+			id,
+			user_id,
+			table_type,
+			header_title
+	)
+    values (
+			#{id,jdbcType=INTEGER},
+			#{userId,jdbcType=INTEGER},
+			#{tableType,jdbcType=INTEGER},
+			#{headerTitle,jdbcType=VARCHAR}
+	  )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangzhixuan.model.DbUserHeadertitle" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into db_user_headertitle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		id,
+		</if>
+		<if test="userId != null" >
+		user_id,
+		</if>
+		<if test="tableType != null" >
+		table_type,
+		</if>
+		<if test="headerTitle != null" >
+		header_title,
+		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		#{id,jdbcType=INTEGER},
+		</if>
+		<if test="userId != null" >
+		#{userId,jdbcType=INTEGER},
+		</if>
+		<if test="tableType != null" >
+		#{tableType,jdbcType=INTEGER},
+		</if>
+		<if test="headerTitle != null" >
+		#{headerTitle,jdbcType=VARCHAR},
+		</if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangzhixuan.model.DbUserHeadertitle" >
+    update db_user_headertitle
+    <set >
+	<if test="userId != null" >
+	user_id = #{userId,jdbcType=INTEGER},
+	</if>
+	<if test="tableType != null" >
+	table_type = #{tableType,jdbcType=INTEGER},
+	</if>
+	<if test="headerTitle != null" >
+	header_title = #{headerTitle,jdbcType=VARCHAR},
+	</if>
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangzhixuan.model.DbUserHeadertitle" >
+    update db_user_headertitle
+    set 
+			user_id = #{userId,jdbcType=INTEGER},
+			table_type = #{tableType,jdbcType=INTEGER},
+			header_title = #{headerTitle,jdbcType=VARCHAR}
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_user_headertitle
+  </select>
+  <delete id="batchDelete">
+	delete from db_user_headertitle
+    where id IN (${ids})
+  </delete>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_user_headertitle
+	<where>
+	<if test="id != null" >
+	and id = #{id,jdbcType=INTEGER}
+	</if>
+	<if test="userId != null" >
+	and user_id = #{userId,jdbcType=INTEGER}
+	</if>
+	<if test="tableType != null" >
+	and table_type = #{tableType,jdbcType=INTEGER}
+	</if>
+	<if test="headerTitle != null" >
+	and header_title = #{headerTitle,jdbcType=VARCHAR}
+	</if>
+	</where>
+  </select>
+  <select id="queryCount" resultType="java.lang.Long" parameterType="java.util.Map">
+	 select 
+    count(1)
+    from db_user_headertitle
+	<include refid="page_where"/>
+  </select>
+  <select id="queryPageResult" resultType="java.util.Map" parameterType="java.util.Map">
+	select 
+    <include refid="Base_Column_List" />
+    from db_user_headertitle
+	<include refid="page_where"/>
+	<include refid="page_order"/>
+	<include refid="page_limit"/>
+  </select>
+  <sql  id="page_where">
+  <where>
+	<if test="userId != null" >
+		and user_id = #{userId,jdbcType=INTEGER}
+	</if>
+	<if test="tableType != null" >
+		and table_type = #{tableType,jdbcType=INTEGER}
+	</if>
+	<if test="headerTitle != null" >
+		and header_title = #{headerTitle,jdbcType=VARCHAR}
+	</if>
+  </where>
+  </sql>
+  <sql  id="page_order">
+	<if test="orderStr != null and orderStr != ''" >
+  		order by ${orderStr}
+  	</if>
+  </sql>
+  <sql id="page_limit">
+  	<if test="curRow!=null and limitSize!='' ">limit #{curRow},#{limitSize}</if>
+  </sql>
+  
+  
+  
+  <insert id="insertHeaderTitle" >
+    insert into db_user_headertitle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="userid != null" >
+		user_id,
+		</if>
+		<if test="tableType != null" >
+		table_type,
+		</if>
+		header_title
+    </trim>
+    values 
+    <foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			(
+			<if test="userid != null" >
+			#{userid},
+			</if>
+			<if test="tableType != null" >
+			#{tableType},
+			</if>
+			#{item}
+			)
+	</foreach>
+  </insert>
+  
+  
+  
+  <delete id="deleteHeaderTitle">
+	delete from db_user_headertitle
+    where user_id = #{userid} and table_type = #{tableType}
+  </delete>
+  
+  
+  
+  
+  
+</mapper>
