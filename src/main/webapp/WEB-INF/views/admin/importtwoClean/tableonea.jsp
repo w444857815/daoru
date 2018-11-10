@@ -186,15 +186,52 @@
             <table>
                 <tr>
                 	<td>
-                		请选择要导入到哪个表中
+                		请选择要导入到哪个数据源中
                 	</td>
                 	<td>
                 		<select id="importwhere">
                 			<option value="0">请选择</option>
-                			<option value="one_a">表一A中</option>
-                			<option value="one_b">表一B中</option>
-                			<option value="two_a">表二A中</option>
-                			<option value="two_b">表二B中</option>
+                			<option value="one_a">数据源一</option>
+<!--                 			<option value="one_b">表一B中</option> -->
+                			<option value="two_a">数据源二</option>
+<!--                 			<option value="two_b">表二B中</option> -->
+                		</select>
+                	</td>
+                	<td>
+                		导入列数(默认10列)
+                	</td>
+                	<td>
+                		<select id="importcolnum">
+                			<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
+							<option>9</option>
+							<option selected="selected">10</option>
+							<option>11</option>
+							<option>12</option>
+							<option>13</option>
+							<option>14</option>
+							<option>15</option>
+							<option>16</option>
+							<option>17</option>
+							<option>18</option>
+							<option>19</option>
+							<option>20</option>
+							<option>21</option>
+							<option>22</option>
+							<option>23</option>
+							<option>24</option>
+							<option>25</option>
+							<option>26</option>
+							<option>27</option>
+							<option>28</option>
+							<option>29</option>
+							<option>30</option>
                 		</select>
                 	</td>
                     <td style="width: 100px;">选择文件:</td>
@@ -203,45 +240,28 @@
                     </td>
                     <td>
                         <a href="javascript:void(0);" class="easyui-linkbutton"  onclick="upfilefile();" id="upbutton">上传</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" onclick="importData();" id="importDatabutonea">导入信息</a>
+                        
 <!--                         <a href="javascript:void(0);" class="easyui-linkbutton" onclick="ceshi();">测试</a> -->
                         
                     </td>
                     <td>
+                    	第一行作为标题<input type="checkbox" id="asheader" checked="checked" disabled="disabled">
+                    	<a href="javascript:void(0);" class="easyui-linkbutton" onclick="importData();" id="importDatabutonea">导入信息</a>
+                    </td>
+                    <td>
                     	<span id="thisimportnums"></span>
                     </td>
-<!--                     <td> -->
-<!--                     	从第几行开始算数据 -->
-<!--                     	<select id="rowstart"> -->
-<!--                     		<option value="1">1</option> -->
-<!--                     		<option value="2" selected="selected">2</option> -->
-<!--                     		<option value="3">3</option> -->
-<!--                     		<option value="4">4</option> -->
-<!--                     		<option value="5">5</option> -->
-<!--                     		<option value="6">6</option> -->
-<!--                     	</select> -->
-<!--                     </td> -->
                 </tr>
                 <tr>
                 	<td>
                 		上传进度
                 	</td>
-                	<td colspan="3">
+                	<td colspan="7">
                 		<div class="progress">
 							<div class="bar" style="width: 0%;" id="jindu">0%</div>
                         </div>
                 	</td>
                 </tr>
-<!--                 <tr> -->
-<%--                 	<td colspan="2">当前表一中共有<span style="color: red;">${allsize }</span>条数据</td> --%>
-<!--                 </tr> -->
-<!-- <!--                 导入数据以后就立马把这条信息显示出来 --> 
-<!--                 <div hidden="hidden"> -->
-<!-- 	                <tr> -->
-<!-- 	                	<td colspan="2">当前文件中共有<span id="xlsDataNums" style="color: red;">0</span>条数据</td> -->
-<!-- 	                </tr> -->
-<!--                 </div> -->
-<!--                 点击导入以后，再把这条信息显示出来 -->
 	               <tr >
 <!-- 	               	<td colspan="2">其中<span id="updateSize" style="color: red;">0</span>条重复(已更新)，<span id="insertSize" style="color: red;">0</span>条导入成功，目前库中共<span id="nowTableSize" style="color: red;">0</span>条数据</td> -->
 	               		<td colspan="2"></td>
