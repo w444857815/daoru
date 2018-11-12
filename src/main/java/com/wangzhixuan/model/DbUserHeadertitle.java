@@ -8,21 +8,27 @@ public class DbUserHeadertitle extends Model<DbTableone> {
 	
 	private static final long serialVersionUID = 5454155825314635342L;
 	
+	
+
 	//columns START
     /**
      * id  
      */ 	
 	private Integer id;
     /**
-     * userId  
+     * 用户id  
      */ 	
 	private Integer userId;
     /**
-     * tableType  
+     * 数据源类型，源1是1  和 源2 是2   
      */ 	
 	private Integer tableType;
     /**
-     * headerTitle  
+     * 第几列，用col1表示  
+     */ 	
+	private String headerCol;
+    /**
+     * 表头名称  
      */ 	
 	private String headerTitle;
 	//columns END
@@ -48,6 +54,13 @@ public class DbUserHeadertitle extends Model<DbTableone> {
 	
 	public void setTableType(Integer tableType) {
 		this.tableType = tableType;
+	}
+	public String getHeaderCol() {
+		return this.headerCol;
+	}
+	
+	public void setHeaderCol(String headerCol) {
+		this.headerCol = headerCol;
 	}
 	public String getHeaderTitle() {
 		return this.headerTitle;

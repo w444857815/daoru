@@ -43,7 +43,7 @@ public class SpringThreadBeachInsertDbOneJDBC extends Thread {
 	
 
 	public void run() {
-		String url = "jdbc:mysql://127.0.0.1:3306/shiro?&useSSL=true";
+		String url = "jdbc:mysql://127.0.0.1:3306/shiro?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false";
 		String name = "com.mysql.jdbc.Driver";
 		String user = "root";
 		String password = "qweABC123.";

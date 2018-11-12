@@ -16,6 +16,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.wangzhixuan.model.DbConfigTable;
+import com.wangzhixuan.model.DbUserHeadertitle;
 import com.wangzhixuan.util.reflectUtil;
 
 public class ExplorBigExcel {
@@ -53,29 +54,52 @@ public class ExplorBigExcel {
         out.close();
     }
 	
-	public static String exportExcel(List<DbConfigTable> list,String tableEnd,String realPath) throws IOException {
+	public static String exportExcel(List<DbConfigTable> list,String tableEnd,String realPath, List<DbUserHeadertitle>... source) throws IOException {
         XSSFWorkbook workbook1 = new XSSFWorkbook(new FileInputStream(new File(realPath+"/exportExcelTemplent/daochTemp.xlsx")));
         SXSSFWorkbook sxssfWorkbook = new SXSSFWorkbook(workbook1, 100);
         Sheet first = sxssfWorkbook.getSheetAt(0);
         int size = list.size();
         int col ;
-        if(tableEnd.startsWith("one")){
-        	col = 11;
+        boolean sourceOneBoo = false;
+        boolean sourceTwoBoo = false;
+        if(tableEnd.contains("one_")){
+        	if(source.length==0){
+        		col = 11;
+        	}else{
+        		col = source[0].size();
+        		sourceOneBoo = true;
+        	}
         }else{
-        	col = 28;
+        	if(source.length==0){
+        		col = 28;
+        	}else{
+        		col = source[1].size();
+        		sourceTwoBoo = true;
+        	}
         }
-        /*Row firstrow = first.createRow(0);
-        firstrow.createCell(0).setCellValue("column" + 0);
-        firstrow.createCell(1).setCellValue("column" + 1);
-        firstrow.createCell(2).setCellValue("column" + 2);
-        firstrow.createCell(3).setCellValue("column" + 3);
-        firstrow.createCell(4).setCellValue("column" + 4);
-        firstrow.createCell(5).setCellValue("column" + 5);
-        firstrow.createCell(6).setCellValue("column" + 6);*/
+        
+        int startNum = 0;
+        if(source.length==0){
+        	startNum = 0;
+        }else{
+        	startNum = 1;
+        	Row firstrow = first.createRow(0);
+        	if(sourceOneBoo){
+        		for (int i = 0; i < source[0].size(); i++) {
+        			firstrow.createCell(i).setCellValue(source[0].get(i).getHeaderTitle());
+				}
+        	}
+        	if(sourceTwoBoo){
+        		for (int i = 0; i < source[1].size(); i++) {
+        			firstrow.createCell(i).setCellValue(source[1].get(i).getHeaderTitle());
+				}
+        	}
+            
+        }
         System.out.println("开始");
         for (int i = 0; i < size; i++) {
         	System.out.println("写入第"+i+"行");
-            Row row = first.createRow(i);
+            Row row = first.createRow(i+startNum);
             DbConfigTable dbConfigTable = list.get(i);
             for (int j = 0; j < col; j++) {
             	// 数据

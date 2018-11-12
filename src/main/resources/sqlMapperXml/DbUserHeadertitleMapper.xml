@@ -5,12 +5,14 @@
 			 <id column="id" property="id" jdbcType="INTEGER" />
 			<result column="user_id" property="userId" jdbcType="INTEGER" />
 			<result column="table_type" property="tableType" jdbcType="INTEGER" />
+			<result column="header_col" property="headerCol" jdbcType="VARCHAR" />
 			<result column="header_title" property="headerTitle" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
 		id,
 		user_id,
 		table_type,
+		header_col,
 		header_title
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -31,12 +33,14 @@
 			id,
 			user_id,
 			table_type,
+			header_col,
 			header_title
 	)
     values (
 			#{id,jdbcType=INTEGER},
 			#{userId,jdbcType=INTEGER},
 			#{tableType,jdbcType=INTEGER},
+			#{headerCol,jdbcType=VARCHAR},
 			#{headerTitle,jdbcType=VARCHAR}
 	  )
   </insert>
@@ -55,6 +59,9 @@
 		<if test="tableType != null" >
 		table_type,
 		</if>
+		<if test="headerCol != null" >
+		header_col,
+		</if>
 		<if test="headerTitle != null" >
 		header_title,
 		</if>
@@ -68,6 +75,9 @@
 		</if>
 		<if test="tableType != null" >
 		#{tableType,jdbcType=INTEGER},
+		</if>
+		<if test="headerCol != null" >
+		#{headerCol,jdbcType=VARCHAR},
 		</if>
 		<if test="headerTitle != null" >
 		#{headerTitle,jdbcType=VARCHAR},
@@ -83,6 +93,9 @@
 	<if test="tableType != null" >
 	table_type = #{tableType,jdbcType=INTEGER},
 	</if>
+	<if test="headerCol != null" >
+	header_col = #{headerCol,jdbcType=VARCHAR},
+	</if>
 	<if test="headerTitle != null" >
 	header_title = #{headerTitle,jdbcType=VARCHAR},
 	</if>
@@ -94,6 +107,7 @@
     set 
 			user_id = #{userId,jdbcType=INTEGER},
 			table_type = #{tableType,jdbcType=INTEGER},
+			header_col = #{headerCol,jdbcType=VARCHAR},
 			header_title = #{headerTitle,jdbcType=VARCHAR}
      where id = #{id,jdbcType=INTEGER}
   </update>
@@ -119,6 +133,9 @@
 	</if>
 	<if test="tableType != null" >
 	and table_type = #{tableType,jdbcType=INTEGER}
+	</if>
+	<if test="headerCol != null" >
+	and header_col = #{headerCol,jdbcType=VARCHAR}
 	</if>
 	<if test="headerTitle != null" >
 	and header_title = #{headerTitle,jdbcType=VARCHAR}
@@ -147,6 +164,9 @@
 	<if test="tableType != null" >
 		and table_type = #{tableType,jdbcType=INTEGER}
 	</if>
+	<if test="headerCol != null" >
+		and header_col = #{headerCol,jdbcType=VARCHAR}
+	</if>
 	<if test="headerTitle != null" >
 		and header_title = #{headerTitle,jdbcType=VARCHAR}
 	</if>
@@ -172,6 +192,7 @@
 		<if test="tableType != null" >
 		table_type,
 		</if>
+		header_col,
 		header_title
     </trim>
     values 
@@ -184,6 +205,7 @@
 			<if test="tableType != null" >
 			#{tableType},
 			</if>
+			'col${index}',
 			#{item}
 			)
 	</foreach>
@@ -197,7 +219,12 @@
   </delete>
   
   
-  
+  <select id="selectByMap" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_user_headertitle
+    where user_id = #{userId} and table_type = #{tableType}
+  </select>
   
   
 </mapper>

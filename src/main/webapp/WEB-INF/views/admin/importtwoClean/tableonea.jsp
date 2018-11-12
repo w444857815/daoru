@@ -8,12 +8,12 @@
     function importData(){
     	
     	if($('#filepathonea').val()==''){
-    		alert("请先上传文件");
+    		$.messager.alert("操作提示", "请先上传文件");
     		return;
     	}
     	var importwhere = $('#importwhere').val();
     	if(importwhere==0){
-    		alert("必须选择导入到哪个表中");
+    		$.messager.alert("操作提示", "必须选择导入到哪个表中");
     		return;
     	}
     	$('#importDatabutonea').linkbutton('disable');
@@ -46,14 +46,14 @@
     function upfilefile(){
     	var importwhere = $('#importwhere').val();
     	if(importwhere==0){
-    		alert("必须选择导入到哪个表中");
+    		$.messager.alert("操作提示", "必须选择导入到哪个表中");
     		return;
     	}
     	var files = document.getElementById("uploadFileonea").files;
 		//文件数量
 		//alert(files.length);
 		if(files.length==0){
-			alert("请选择文件");
+			$.messager.alert("操作提示", "请选择文件");
 			return;
 		}
 		var selfile = $('#uploadFileonea').val();
@@ -61,7 +61,7 @@
 		//alert(fileend);
 		if(fileend=="xlsx"||fileend==".xls"){
 		}else{
-			alert("只能选择excel文件");
+			$.messager.alert("操作提示", "只能选择excel文件");
 			return;
 		}
 		//for(let i=0;i<files.length;i++){
@@ -197,43 +197,43 @@
 <!--                 			<option value="two_b">表二B中</option> -->
                 		</select>
                 	</td>
-                	<td>
-                		导入列数(默认10列)
-                	</td>
-                	<td>
-                		<select id="importcolnum">
-                			<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-							<option>6</option>
-							<option>7</option>
-							<option>8</option>
-							<option>9</option>
-							<option selected="selected">10</option>
-							<option>11</option>
-							<option>12</option>
-							<option>13</option>
-							<option>14</option>
-							<option>15</option>
-							<option>16</option>
-							<option>17</option>
-							<option>18</option>
-							<option>19</option>
-							<option>20</option>
-							<option>21</option>
-							<option>22</option>
-							<option>23</option>
-							<option>24</option>
-							<option>25</option>
-							<option>26</option>
-							<option>27</option>
-							<option>28</option>
-							<option>29</option>
-							<option>30</option>
-                		</select>
-                	</td>
+<!--                 	<td> -->
+<!--                 		导入列数(默认10列) -->
+<!--                 	</td> -->
+<!--                 	<td> -->
+<!--                 		<select id="importcolnum"> -->
+<!--                 			<option>1</option> -->
+<!-- 							<option>2</option> -->
+<!-- 							<option>3</option> -->
+<!-- 							<option>4</option> -->
+<!-- 							<option>5</option> -->
+<!-- 							<option>6</option> -->
+<!-- 							<option>7</option> -->
+<!-- 							<option>8</option> -->
+<!-- 							<option>9</option> -->
+<!-- 							<option selected="selected">10</option> -->
+<!-- 							<option>11</option> -->
+<!-- 							<option>12</option> -->
+<!-- 							<option>13</option> -->
+<!-- 							<option>14</option> -->
+<!-- 							<option>15</option> -->
+<!-- 							<option>16</option> -->
+<!-- 							<option>17</option> -->
+<!-- 							<option>18</option> -->
+<!-- 							<option>19</option> -->
+<!-- 							<option>20</option> -->
+<!-- 							<option>21</option> -->
+<!-- 							<option>22</option> -->
+<!-- 							<option>23</option> -->
+<!-- 							<option>24</option> -->
+<!-- 							<option>25</option> -->
+<!-- 							<option>26</option> -->
+<!-- 							<option>27</option> -->
+<!-- 							<option>28</option> -->
+<!-- 							<option>29</option> -->
+<!-- 							<option>30</option> -->
+<!--                 		</select> -->
+<!--                 	</td> -->
                     <td style="width: 100px;">选择文件:</td>
                     <td>
                     	<input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple id="uploadFileonea"/>

@@ -1,14 +1,11 @@
 package com.wangzhixuan.controller;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,6 +61,20 @@ public class DeleteTableController extends BaseController {
     	
     	return "admin/deletePage/deletePage";
     }
+    
+    @GetMapping("/indexclean")
+    public String managerClean(Model model) {
+    	//查出四张表里对应的数据总条数
+    	ShiroUser acount = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
+    	List<Integer> list =  iDbConfigService.selectEveryCount(acount.getLoginName());
+    	model.addAttribute("one_a_nums", list.get(0));
+    	model.addAttribute("one_b_nums", list.get(1));
+    	model.addAttribute("two_a_nums", list.get(2));
+    	model.addAttribute("two_b_nums", list.get(3));
+    	
+    	return "admin/deletePageClean/deletePage";
+    }
+    
     
     /**
      * 
