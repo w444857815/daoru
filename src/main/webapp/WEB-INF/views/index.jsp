@@ -4,8 +4,10 @@
 <html>
 <head>
 <%@ include file="/commons/basejs.jsp" %>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>数据清洗平台</title>
+<meta name="keywords" content="数据清洗平台,数据清洗工具,数据对比工具,数据对比平台,excel数据对比清洗">
+<meta name="description" content="excel导入数据清洗平台,excel导入数据清洗工具,excel导入数据对比工具,excel导入数据对比平台,excel数据对比清洗导出结果">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
     var index_tabs;
     var indexTabsMenu;

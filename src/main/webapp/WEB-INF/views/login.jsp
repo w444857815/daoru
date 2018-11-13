@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>用户登录-如梦技术IT-专业的java学习培训平台</title>
-    <meta name="keywords" content="如梦技术,java职业教育,java线教育平台,java在线学习,spring,mybatis,spring-boot,docker">
-    <meta name="description" content="如梦技术作为中国最权威的java在线教育平台,拥有海量高清java职业课程,涵盖个个组件,根据java在线学习特点,如梦技术推出java学习知识体系图,java职业学习实战路径图,帮助java学习者从零基础起步,结合java实战案例演练,系统学习,助你快速成为java优秀技术人才！">
+    <title>数据清洗平台</title>
+    <meta name="keywords" content="数据清洗平台,数据清洗工具,数据对比工具,数据对比平台,excel数据对比清洗">
+    <meta name="description" content="excel导入数据清洗平台,excel导入数据清洗工具,excel导入数据对比工具,excel导入数据对比平台,excel数据对比清洗导出结果">
     <meta name="viewport" content="width=device-width">
     <%@ include file="/commons/basejs.jsp" %>
     <link rel="stylesheet" type="text/css" href="${staticPath }/static/style/css/login.css?v=201612202107" />
