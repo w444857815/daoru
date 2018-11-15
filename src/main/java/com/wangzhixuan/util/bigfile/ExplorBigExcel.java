@@ -51,6 +51,7 @@ public class ExplorBigExcel {
         }
         FileOutputStream out = new FileOutputStream("exportExcel/exportExcel.xlsx");
         sxssfWorkbook.write(out);
+        sxssfWorkbook.close();
         out.close();
     }
 	
