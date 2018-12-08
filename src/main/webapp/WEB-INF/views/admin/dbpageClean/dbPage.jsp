@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/commons/global.jsp" %>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
     
     
@@ -126,12 +127,53 @@
             			</select>
             		</td>
             		<td>
-            			<a href="javascript:void(0);" class="easyui-linkbutton"  onclick="duibi();" id="upbutton">对比并导出</a>
+            		
+            		
+            		
+            			<a href="javascript:void(0);" class="easyui-linkbutton"  onclick="duibi();" id="upbutton">对比并导出
+            			</a>
             			<span id="wenzi"></span>
             		</td>
             	</tr>
             </table>
         </form>
+    </div>
+    <div style="margin-top: 30px;">
+    	<table id="dg1" class="easyui-datagrid" title="数据源一，只展示前十条已导入示例" style="width:1000px;height:auto;"
+				data-options="singleSelect:true,collapsible:true">
+			<thead>
+				<tr>
+					<c:forEach var="sourceone" items="${sourceone}">
+			 			<c:if test="${sourceone != null }">
+			 				<th field="${sourceone.headerTitle }" width="150px;">${sourceone.headerTitle }</th>
+			 			</c:if>
+			 		</c:forEach>
+				</tr>
+			</thead>
+			<tbody>
+					${sourOneStr }
+			</tbody>
+		</table>
+    </div>
+    <div>
+    	<span style="color: red;">------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span>
+    </div>
+    <div>
+    	<table id="dg2" class="easyui-datagrid" title="数据源二，只展示前十条已导入示例" style="width:1000px;height:auto;"
+				data-options="singleSelect:true,collapsible:true">
+			<thead>
+				<tr>
+					<c:forEach var="sourcetwo" items="${sourcetwo}">
+			 			<c:if test="${sourcetwo != null }">
+			 				<th field="${sourcetwo.headerTitle }" width="150px;">${sourcetwo.headerTitle }</th>
+			 			</c:if>
+			 		</c:forEach>
+				</tr>
+			</thead>
+			<tbody>
+					${sourTwoStr }
+			</tbody>
+		</table>
     </div>
 </div>
 <div id="userToolbar" style="display: none;">

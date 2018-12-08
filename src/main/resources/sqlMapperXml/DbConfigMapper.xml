@@ -208,4 +208,15 @@
 	  	  select * from ${tableqian} where ${col_qian} not in (select ${col_hou} from ${tablehou})
 	  </select>
 	  
+	  
+<!-- 	  按表头多少个，查多少列 -->
+	  
+	  <select id="selectExampleLimitData" resultMap="BaseResultMap">
+	  	  select 
+	  	  <foreach collection="list" index="index" item="item" 
+			separator="," >
+			col${index}
+			</foreach>
+	  	  from ${tableName} limit 10
+	  </select>
 </mapper>

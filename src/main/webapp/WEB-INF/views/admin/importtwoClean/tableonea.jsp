@@ -34,6 +34,9 @@
 				}
 				if(data.code=='0'){
 					$('#thisimportnums').html("导入成功,本次导入"+data.data.nowTableSize+"条数据");
+					$('#showTitleId').html(data.data.titleStr);
+					$('#showDataId').html(data.data.sourOneStr);
+					$('#liebiao').attr("class","easyui-datagrid");
 				}
 			},
 			error : function() {
@@ -269,6 +272,45 @@
             </table>
         </form>
     </div>
+    
+    <div style="margin-top: 200px;">
+    	<table id="liebiao" class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+				data-options="singleSelect:true,collapsible:true">
+			<thead>
+				<tr id="showTitleId">
+					<th field="1" width="100px;">Item ID</th>
+					<th field="2" width="100px;">Product</th>
+					<th field="3" width="100px;">List Price</th>
+					<th field="4" width="100px;">Unit Cost</th>
+					<th field="5" width="100px;">Attribute</th>
+					<th field="6" width="100px;">Status</th>
+				</tr>
+			</thead>
+			<tbody  id="showDataId">
+				<tr>
+					<td>
+						1231
+					</td>
+					<td>
+						1232
+					</td>
+					<td>
+						1233
+					</td>
+					<td>
+						1235
+					</td>
+					<td>
+						1234
+					</td>
+					<td>
+						1237
+					</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+    
 </div>
 <div id="userToolbar" style="display: none;">
     <shiro:hasPermission name="/user/add">

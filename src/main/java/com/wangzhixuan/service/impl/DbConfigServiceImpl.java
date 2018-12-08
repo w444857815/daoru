@@ -77,6 +77,15 @@ public class DbConfigServiceImpl extends ServiceImpl<DbConfigMapper, DbConfigTab
 		List<DbConfigTable> list = dbConfigMapper.selectdbTablesData(csmap);
 		return list;
 	}
+
+	/**
+	 * 按表头多少个查多少列
+	 */
+	@Override
+	public List<DbConfigTable> selectExampleLimitData(Map<String, Object> csmap) {
+		List<DbConfigTable> list = dbConfigMapper.selectExampleLimitData(csmap);
+		return list;
+	}
 	
 	
 	

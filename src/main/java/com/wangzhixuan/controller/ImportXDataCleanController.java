@@ -29,6 +29,7 @@ import com.wangzhixuan.commons.base.BaseController;
 import com.wangzhixuan.commons.csrf.CsrfToken;
 import com.wangzhixuan.commons.shiro.ShiroUser;
 import com.wangzhixuan.model.DbConfigTable;
+import com.wangzhixuan.model.DbUserHeadertitle;
 import com.wangzhixuan.service.DbUserHeadertitleService;
 import com.wangzhixuan.service.IDbConfigService;
 import com.wangzhixuan.service.IDbTableoneService;
@@ -412,6 +413,37 @@ public class ImportXDataCleanController extends BaseController {
             resultmap.put("nowTableSize", totalSize);
             
             
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("userId", acount.getId());
+        	map.put("tableType", tableType);
+        	List<DbUserHeadertitle> sourceone = dbUserHeadertitleService.selectByMap(map);
+          //把数据源1和数据源2的数据都查出来10条
+        	String tableqian = TableUtil.tableName(acount.getLoginName(), tableEnd); 
+        	Map<String,Object> csmap = new HashMap<String,Object>();
+        	csmap.put("tableName", tableqian);
+        	csmap.put("list", sourceone);
+        	List<DbConfigTable> sourceDataOne = iDbConfigService.selectExampleLimitData(csmap);
+        	/*DbConfigTable sourceOneTitle = new DbConfigTable();
+        	for (int i = 0; i < sourceone.size(); i++) {
+        		reflectUtil.reflectset(sourceOneTitle, "col"+i, sourceone.get(i).getHeaderTitle());
+    		}
+        	sourceDataOne.add(0,sourceOneTitle);*/
+        	resultmap.put("sourceDataOne", sourceDataOne);
+        	StringBuffer sourOneStr = new StringBuffer();
+        	StringBuffer titleStr = new StringBuffer();
+        	for (int j = 0; j < sourceone.size(); j++) {
+        		//<th field="${sourceone.headerTitle }" width="150px;">${sourceone.headerTitle }</th>
+        		titleStr.append("<th field=\"").append(sourceone.get(j).getHeaderTitle()+"\" width=\"150px;\">").append(sourceone.get(j).getHeaderTitle()+"</th>");
+			}
+        	resultmap.put("titleStr", titleStr);
+        	for (int i = 0; i < sourceDataOne.size(); i++) {
+        		sourOneStr.append("<tr>");
+        		for (int j = 0; j < sourceone.size(); j++) {
+        			sourOneStr.append("<td>").append(reflectUtil.reflectget(sourceDataOne.get(i), "col"+j)).append("</td>");
+    			}
+        		sourOneStr.append("</tr>");
+    		}
+        	resultmap.put("sourOneStr", sourOneStr);
             
         } catch (Exception e) {
             e.printStackTrace();

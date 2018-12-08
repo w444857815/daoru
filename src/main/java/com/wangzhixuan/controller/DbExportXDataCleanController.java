@@ -28,6 +28,7 @@ import com.wangzhixuan.service.DbUserHeadertitleService;
 import com.wangzhixuan.service.IDbConfigService;
 import com.wangzhixuan.util.FileUploadUtil;
 import com.wangzhixuan.util.TableUtil;
+import com.wangzhixuan.util.reflectUtil;
 import com.wangzhixuan.util.bigfile.ExplorBigExcel;
 
 /**
@@ -75,6 +76,48 @@ public class DbExportXDataCleanController extends BaseController {
     	List<DbUserHeadertitle> sourcetwo = dbUserHeadertitleService.selectByMap(map);
     	model.addAttribute("sourceone", sourceone);
     	model.addAttribute("sourcetwo", sourcetwo);
+    	//把数据源1和数据源2的数据都查出来10条
+    	String tableqian = TableUtil.tableName(acount.getLoginName(), "one_a"); 
+    	String tablehou = TableUtil.tableName(acount.getLoginName(), "two_a");
+    	Map<String,Object> csmap = new HashMap<String,Object>();
+    	csmap.put("tableName", tableqian);
+    	csmap.put("list", sourceone);
+    	List<DbConfigTable> sourceDataOne = iDbConfigService.selectExampleLimitData(csmap);
+    	/*DbConfigTable sourceOneTitle = new DbConfigTable();
+    	for (int i = 0; i < sourceone.size(); i++) {
+    		reflectUtil.reflectset(sourceOneTitle, "col"+i, sourceone.get(i).getHeaderTitle());
+		}
+    	sourceDataOne.add(0,sourceOneTitle);*/
+    	model.addAttribute("sourceDataOne", sourceDataOne);
+    	StringBuffer sourOneStr = new StringBuffer();
+    	for (int i = 0; i < sourceDataOne.size(); i++) {
+    		sourOneStr.append("<tr>");
+    		for (int j = 0; j < sourceone.size(); j++) {
+    			sourOneStr.append("<td width=\"auto;\">").append(reflectUtil.reflectget(sourceDataOne.get(i), "col"+j)).append("</td>");
+			}
+    		sourOneStr.append("</tr>");
+		}
+    	model.addAttribute("sourOneStr", sourOneStr);
+    	csmap.clear();
+    	csmap.put("tableName", tablehou);
+    	csmap.put("list", sourcetwo);
+    	List<DbConfigTable> sourceDataTwo = iDbConfigService.selectExampleLimitData(csmap);
+    	/*DbConfigTable sourceTwoTitle = new DbConfigTable();
+    	for (int i = 0; i < sourcetwo.size(); i++) {
+    		reflectUtil.reflectset(sourceTwoTitle, "col"+i, sourcetwo.get(i).getHeaderTitle());
+		}
+    	sourceDataTwo.add(0,sourceTwoTitle);*/
+    	model.addAttribute("sourceDataTwo", sourceDataTwo);
+    	
+    	StringBuffer sourTwoStr = new StringBuffer();
+    	for (int i = 0; i < sourceDataTwo.size(); i++) {
+    		sourTwoStr.append("<tr>");
+    		for (int j = 0; j < sourcetwo.size(); j++) {
+    			sourTwoStr.append("<td>").append(reflectUtil.reflectget(sourceDataTwo.get(i), "col"+j)).append("</td>");
+			}
+    		sourTwoStr.append("</tr>");
+		}
+    	model.addAttribute("sourTwoStr", sourTwoStr);
     	return "admin/dbpageClean/dbPage";
     }
     

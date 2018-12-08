@@ -50,6 +50,18 @@ public interface DbConfigMapper extends BaseMapper<DbConfigTable> {
 	 */
 	List<DbConfigTable> selectdbTablesData(Map<String, Object> csmap);
 	
+	/**
+	 * @Title:DbConfigMapper.java
+	 * @Package com.wangzhixuan.mapper
+	 * 按表头多少个查多少列
+	 * @author wangruwei
+	 * @date 2018年12月4日下午3:44:23
+	 * @param csmap
+	 * @return
+	 * @version V1.0
+	 */
+	List<DbConfigTable> selectExampleLimitData(Map<String, Object> csmap);
+	
 	
 	
 }

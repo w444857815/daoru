@@ -79,4 +79,17 @@ public interface IDbConfigService extends IService<DbConfigTable> {
 	 */
 	List<DbConfigTable> selectdbTablesData(Map<String, Object> csmap);
 	
+	/**
+	 * 按表头有多少个来查找多少列
+	 * @Title:IDbConfigService.java
+	 * @Package com.wangzhixuan.service
+	 * @Description:TODO
+	 * @author wangruwei
+	 * @date 2018年12月4日下午3:43:27
+	 * @param csmap
+	 * @return
+	 * @version V1.0
+	 */
+	List<DbConfigTable> selectExampleLimitData(Map<String, Object> csmap);
+	
 }
