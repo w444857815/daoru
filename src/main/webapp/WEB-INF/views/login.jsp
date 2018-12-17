@@ -22,6 +22,9 @@
             <div class="initial_right_hand" id="right_hand"></div>
         </div>
         <P style="padding: 30px 0px 10px; position: relative;">
+            <span style="color: red;size: 15px;">测试账号test,密码test。如有问题加QQ 444857815联系</span>
+        </P>
+        <P style="padding: 30px 0px 10px; position: relative;">
             <span class="u_logo"></span>
             <input class="ipt" type="text" name="username" placeholder="请输入登录名"/>
         </P>

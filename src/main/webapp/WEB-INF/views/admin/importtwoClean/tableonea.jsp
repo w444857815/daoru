@@ -273,6 +273,8 @@
         </form>
     </div>
     
+    
+    <!-- 
     <div style="margin-top: 200px;">
     	<table id="liebiao" class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
 				data-options="singleSelect:true,collapsible:true">
@@ -310,7 +312,7 @@
 			</tbody>
 		</table>
     </div>
-    
+     -->
 </div>
 <div id="userToolbar" style="display: none;">
     <shiro:hasPermission name="/user/add">
