@@ -74,6 +74,9 @@ public class DbExportXDataCleanController extends BaseController {
     	List<DbUserHeadertitle> sourceone = dbUserHeadertitleService.selectByMap(map);
     	map.put("tableType", "2");
     	List<DbUserHeadertitle> sourcetwo = dbUserHeadertitleService.selectByMap(map);
+    	if(sourceone.size()==0||sourcetwo.size()==0){
+    		return "admin/dbpageClean/dbPageNoData";
+    	}
     	model.addAttribute("sourceone", sourceone);
     	model.addAttribute("sourcetwo", sourcetwo);
     	//把数据源1和数据源2的数据都查出来10条
