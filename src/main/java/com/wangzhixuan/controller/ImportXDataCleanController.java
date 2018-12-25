@@ -265,7 +265,20 @@ public class ImportXDataCleanController extends BaseController {
             
             
             Map<String,Object> headerTitlemap = new HashMap<String,Object>();
-            headerTitlemap.put("list", Arrays.asList(list.get(0)));
+            List<String> insertTitlelist =new ArrayList<>(Arrays.asList(list.get(0)));
+            if(insertTitlelist.size()>0){
+            	for (int i = insertTitlelist.size()-1; i >=0; i--) {
+    				if(insertTitlelist.get(i)==null||"null".equals(insertTitlelist.get(i))){
+    					insertTitlelist.remove(i);
+    				}else{
+    					break;
+    				}
+    			}
+            }else{
+            	return getFailRtn("导入错误，标题列没有");
+            }
+            
+            headerTitlemap.put("list", insertTitlelist);
             headerTitlemap.put("userid", acount.getId());
             headerTitlemap.put("tableType", tableType);
             //先删了，然后插入

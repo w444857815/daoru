@@ -16,7 +16,7 @@
     		$.messager.alert("操作提示", "必须选择导入到哪个表中");
     		return;
     	}
-    	$('#importDatabutonea').linkbutton('disable');
+    	//$('#importDatabutonea').linkbutton('disable');
     	$('#thisimportnums').html("因为数据量大，会需要较长时间导入，请耐心等待，勿刷新界面，导入成功会有提示");
     	$.ajax({
 			type : "post",

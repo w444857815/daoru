@@ -129,7 +129,7 @@ public class SpringThreadBeachInsertDbOneJDBC extends Thread {
 //					colValue += colVals[i]+",";
 					String colValue = "'";
 					for (int k = 0; k < colNumsList.size(); k++) {
-						colValue+=reflectUtil.reflectget(everylist.get(i).get(j), "col"+k)+"','";
+						colValue+=reflectUtil.reflectget(everylist.get(i).get(j), "col"+k).toString().replace("\'", "\\'")+"','";
 					}
 					if(colValue.length()>0){
 						colValue = colValue.substring(0, colValue.length()-2);
