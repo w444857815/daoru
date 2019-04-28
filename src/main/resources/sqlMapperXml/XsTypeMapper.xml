@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhixuan.mapper.XsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.wangzhixuan.model.XsType" >
+			 <id column="id" property="id" jdbcType="INTEGER" />
+			<result column="type_name" property="typeName" jdbcType="VARCHAR" />
+			<result column="get_url" property="getUrl" jdbcType="VARCHAR" />
+			<result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+		id,
+		type_name,
+		get_url,
+		status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xs_type
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from xs_type
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangzhixuan.model.XsType" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into xs_type (
+			id,
+			type_name,
+			get_url,
+			status
+	)
+    values (
+			#{id,jdbcType=INTEGER},
+			#{typeName,jdbcType=VARCHAR},
+			#{getUrl,jdbcType=VARCHAR},
+			#{status,jdbcType=VARCHAR}
+	  )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangzhixuan.model.XsType" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into xs_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		id,
+		</if>
+		<if test="typeName != null" >
+		type_name,
+		</if>
+		<if test="getUrl != null" >
+		get_url,
+		</if>
+		<if test="status != null" >
+		status,
+		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		#{id,jdbcType=INTEGER},
+		</if>
+		<if test="typeName != null" >
+		#{typeName,jdbcType=VARCHAR},
+		</if>
+		<if test="getUrl != null" >
+		#{getUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="status != null" >
+		#{status,jdbcType=VARCHAR},
+		</if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangzhixuan.model.XsType" >
+    update xs_type
+    <set >
+	<if test="typeName != null" >
+	type_name = #{typeName,jdbcType=VARCHAR},
+	</if>
+	<if test="getUrl != null" >
+	get_url = #{getUrl,jdbcType=VARCHAR},
+	</if>
+	<if test="status != null" >
+	status = #{status,jdbcType=VARCHAR},
+	</if>
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangzhixuan.model.XsType" >
+    update xs_type
+    set 
+			type_name = #{typeName,jdbcType=VARCHAR},
+			get_url = #{getUrl,jdbcType=VARCHAR},
+			status = #{status,jdbcType=VARCHAR}
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xs_type
+  </select>
+  <delete id="batchDelete">
+	delete from xs_type
+    where id IN (${ids})
+  </delete>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from xs_type
+	<where>
+	<if test="id != null" >
+	and id = #{id,jdbcType=INTEGER}
+	</if>
+	<if test="typeName != null" >
+	and type_name = #{typeName,jdbcType=VARCHAR}
+	</if>
+	<if test="getUrl != null" >
+	and get_url = #{getUrl,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null" >
+	and status = #{status,jdbcType=VARCHAR}
+	</if>
+	</where>
+  </select>
+  <select id="queryCount" resultType="java.lang.Long" parameterType="java.util.Map">
+	 select 
+    count(1)
+    from xs_type
+	<include refid="page_where"/>
+  </select>
+  <select id="queryPageResult" resultType="java.util.Map" parameterType="java.util.Map">
+	select 
+    <include refid="Base_Column_List" />
+    from xs_type
+	<include refid="page_where"/>
+	<include refid="page_order"/>
+	<include refid="page_limit"/>
+  </select>
+  <sql  id="page_where">
+  <where>
+	<if test="typeName != null" >
+		and type_name = #{typeName,jdbcType=VARCHAR}
+	</if>
+	<if test="getUrl != null" >
+		and get_url = #{getUrl,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null" >
+		and status = #{status,jdbcType=VARCHAR}
+	</if>
+  </where>
+  </sql>
+  <sql  id="page_order">
+	<if test="orderStr != null and orderStr != ''" >
+  		order by ${orderStr}
+  	</if>
+  </sql>
+  <sql id="page_limit">
+  	<if test="curRow!=null and limitSize!='' ">limit #{curRow},#{limitSize}</if>
+  </sql>
+  
+  
+  
+  <select id="selectBatchIds" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from xs_type where id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+  
+  
+</mapper>

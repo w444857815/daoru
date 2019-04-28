@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -116,7 +117,8 @@ public class SpringThreadBeachInsertDbOneJDBC extends Thread {
 			}*/
 			
 			//每个放10000个，不知道分几个
-			List<List<DbConfigTable>> everylist = BreakList.createListByUnitSize(dbTableOneList, 10000);
+//			List<List<DbConfigTable>> everylist = BreakList.createListByUnitSize(dbTableOneList, 10000);
+			List<List<DbConfigTable>> everylist = new ArrayList<List<DbConfigTable>>();
 			System.out.println("分成了"+everylist.size()+"个");
 			for (int i = 0; i < everylist.size(); i++) {
 				String sql = prefix + colName + " VALUES ";

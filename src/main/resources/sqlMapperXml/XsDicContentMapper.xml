@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhixuan.mapper.XsDicContentMapper" >
+  <resultMap id="BaseResultMap" type="com.wangzhixuan.model.XsDicContent" >
+			 <id column="id" property="id" jdbcType="INTEGER" />
+			<result column="type_id" property="typeId" jdbcType="INTEGER" />
+			<result column="type_name" property="typeName" jdbcType="VARCHAR" />
+			<result column="book_id" property="bookId" jdbcType="INTEGER" />
+			<result column="book_name" property="bookName" jdbcType="VARCHAR" />
+			<result column="dic_name" property="dicName" jdbcType="VARCHAR" />
+			<result column="dic_geturl" property="dicGeturl" jdbcType="VARCHAR" />
+			<result column="is_get" property="isGet" jdbcType="INTEGER" />
+			<result column="vote_num" property="voteNum" jdbcType="INTEGER" />
+			<result column="is_createfile" property="isCreatefile" jdbcType="VARCHAR" />
+			<result column="content" property="content" jdbcType="VARCHAR" />
+			<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+			<result column="c_user" property="cuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+		id,
+		type_id,
+		type_name,
+		book_id,
+		book_name,
+		dic_name,
+		dic_geturl,
+		is_get,
+		vote_num,
+		is_createfile,
+		content,
+		create_time,
+		c_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xs_dic_content
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from xs_dic_content
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangzhixuan.model.XsDicContent" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into xs_dic_content (
+			id,
+			type_id,
+			type_name,
+			book_id,
+			book_name,
+			dic_name,
+			dic_geturl,
+			is_get,
+			vote_num,
+			is_createfile,
+			content,
+			create_time,
+			c_user
+	)
+    values (
+			#{id,jdbcType=INTEGER},
+			#{typeId,jdbcType=INTEGER},
+			#{typeName,jdbcType=VARCHAR},
+			#{bookId,jdbcType=INTEGER},
+			#{bookName,jdbcType=VARCHAR},
+			#{dicName,jdbcType=VARCHAR},
+			#{dicGeturl,jdbcType=VARCHAR},
+			#{isGet,jdbcType=INTEGER},
+			#{voteNum,jdbcType=INTEGER},
+			#{isCreatefile,jdbcType=VARCHAR},
+			#{content,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{cuser,jdbcType=VARCHAR}
+	  )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangzhixuan.model.XsDicContent" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into xs_dic_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		id,
+		</if>
+		<if test="typeId != null" >
+		type_id,
+		</if>
+		<if test="typeName != null" >
+		type_name,
+		</if>
+		<if test="bookId != null" >
+		book_id,
+		</if>
+		<if test="bookName != null" >
+		book_name,
+		</if>
+		<if test="dicName != null" >
+		dic_name,
+		</if>
+		<if test="dicGeturl != null" >
+		dic_geturl,
+		</if>
+		<if test="isGet != null" >
+		is_get,
+		</if>
+		<if test="voteNum != null" >
+		vote_num,
+		</if>
+		<if test="isCreatefile != null" >
+		is_createfile,
+		</if>
+		<if test="content != null" >
+		content,
+		</if>
+		<if test="createTime != null" >
+		create_time,
+		</if>
+		<if test="cuser != null" >
+		c_user,
+		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		#{id,jdbcType=INTEGER},
+		</if>
+		<if test="typeId != null" >
+		#{typeId,jdbcType=INTEGER},
+		</if>
+		<if test="typeName != null" >
+		#{typeName,jdbcType=VARCHAR},
+		</if>
+		<if test="bookId != null" >
+		#{bookId,jdbcType=INTEGER},
+		</if>
+		<if test="bookName != null" >
+		#{bookName,jdbcType=VARCHAR},
+		</if>
+		<if test="dicName != null" >
+		#{dicName,jdbcType=VARCHAR},
+		</if>
+		<if test="dicGeturl != null" >
+		#{dicGeturl,jdbcType=VARCHAR},
+		</if>
+		<if test="isGet != null" >
+		#{isGet,jdbcType=INTEGER},
+		</if>
+		<if test="voteNum != null" >
+		#{voteNum,jdbcType=INTEGER},
+		</if>
+		<if test="isCreatefile != null" >
+		#{isCreatefile,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null" >
+		#{content,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null" >
+		#{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="cuser != null" >
+		#{cuser,jdbcType=VARCHAR},
+		</if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangzhixuan.model.XsDicContent" >
+    update xs_dic_content
+    <set >
+	<if test="typeId != null" >
+	type_id = #{typeId,jdbcType=INTEGER},
+	</if>
+	<if test="typeName != null" >
+	type_name = #{typeName,jdbcType=VARCHAR},
+	</if>
+	<if test="bookId != null" >
+	book_id = #{bookId,jdbcType=INTEGER},
+	</if>
+	<if test="bookName != null" >
+	book_name = #{bookName,jdbcType=VARCHAR},
+	</if>
+	<if test="dicName != null" >
+	dic_name = #{dicName,jdbcType=VARCHAR},
+	</if>
+	<if test="dicGeturl != null" >
+	dic_geturl = #{dicGeturl,jdbcType=VARCHAR},
+	</if>
+	<if test="isGet != null" >
+	is_get = #{isGet,jdbcType=INTEGER},
+	</if>
+	<if test="voteNum != null" >
+	vote_num = #{voteNum,jdbcType=INTEGER},
+	</if>
+	<if test="isCreatefile != null" >
+	is_createfile = #{isCreatefile,jdbcType=VARCHAR},
+	</if>
+	<if test="content != null" >
+	content = #{content,jdbcType=VARCHAR},
+	</if>
+	<if test="createTime != null" >
+	create_time = #{createTime,jdbcType=TIMESTAMP},
+	</if>
+	<if test="cuser != null" >
+	c_user = #{cuser,jdbcType=VARCHAR},
+	</if>
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangzhixuan.model.XsDicContent" >
+    update xs_dic_content
+    set 
+			type_id = #{typeId,jdbcType=INTEGER},
+			type_name = #{typeName,jdbcType=VARCHAR},
+			book_id = #{bookId,jdbcType=INTEGER},
+			book_name = #{bookName,jdbcType=VARCHAR},
+			dic_name = #{dicName,jdbcType=VARCHAR},
+			dic_geturl = #{dicGeturl,jdbcType=VARCHAR},
+			is_get = #{isGet,jdbcType=INTEGER},
+			vote_num = #{voteNum,jdbcType=INTEGER},
+			is_createfile = #{isCreatefile,jdbcType=VARCHAR},
+			content = #{content,jdbcType=VARCHAR},
+			create_time = #{createTime,jdbcType=TIMESTAMP},
+			c_user = #{cuser,jdbcType=VARCHAR}
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xs_dic_content
+  </select>
+  <delete id="batchDelete">
+	delete from xs_dic_content
+    where id IN (${ids})
+  </delete>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xs_dic_content
+	<where>
+	<if test="id != null" >
+	and id = #{id,jdbcType=INTEGER}
+	</if>
+	<if test="typeId != null" >
+	and type_id = #{typeId,jdbcType=INTEGER}
+	</if>
+	<if test="typeName != null" >
+	and type_name = #{typeName,jdbcType=VARCHAR}
+	</if>
+	<if test="bookId != null" >
+	and book_id = #{bookId,jdbcType=INTEGER}
+	</if>
+	<if test="bookName != null" >
+	and book_name = #{bookName,jdbcType=VARCHAR}
+	</if>
+	<if test="dicName != null" >
+	and dic_name = #{dicName,jdbcType=VARCHAR}
+	</if>
+	<if test="dicGeturl != null" >
+	and dic_geturl = #{dicGeturl,jdbcType=VARCHAR}
+	</if>
+	<if test="isGet != null" >
+	and is_get = #{isGet,jdbcType=INTEGER}
+	</if>
+	<if test="voteNum != null" >
+	and vote_num = #{voteNum,jdbcType=INTEGER}
+	</if>
+	<if test="isCreatefile != null" >
+	and is_createfile = #{isCreatefile,jdbcType=VARCHAR}
+	</if>
+	<if test="content != null" >
+	and content = #{content,jdbcType=VARCHAR}
+	</if>
+	<if test="createTime != null" >
+	and create_time = #{createTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="cuser != null" >
+	and c_user = #{cuser,jdbcType=VARCHAR}
+	</if>
+	<if test="pageparam != null" >
+	limit #{curRow},#{limitSize}
+	</if>
+	</where>
+  </select>
+  <select id="queryCount" resultType="java.lang.Long" parameterType="java.util.Map">
+	 select 
+    count(1)
+    from xs_dic_content
+	<include refid="page_where"/>
+  </select>
+  <select id="queryPageResult" resultType="java.util.Map" parameterType="java.util.Map">
+	select 
+    <include refid="Base_Column_List" />
+    from xs_dic_content
+	<include refid="page_where"/>
+	<include refid="page_order"/>
+	<include refid="page_limit"/>
+  </select>
+  <sql  id="page_where">
+  <where>
+	<if test="typeId != null" >
+		and type_id = #{typeId,jdbcType=INTEGER}
+	</if>
+	<if test="typeName != null" >
+		and type_name = #{typeName,jdbcType=VARCHAR}
+	</if>
+	<if test="bookId != null" >
+		and book_id = #{bookId,jdbcType=INTEGER}
+	</if>
+	<if test="bookName != null" >
+		and book_name = #{bookName,jdbcType=VARCHAR}
+	</if>
+	<if test="dicName != null" >
+		and dic_name = #{dicName,jdbcType=VARCHAR}
+	</if>
+	<if test="dicGeturl != null" >
+		and dic_geturl = #{dicGeturl,jdbcType=VARCHAR}
+	</if>
+	<if test="isGet != null" >
+		and is_get = #{isGet,jdbcType=INTEGER}
+	</if>
+	<if test="voteNum != null" >
+		and vote_num = #{voteNum,jdbcType=INTEGER}
+	</if>
+	<if test="isCreatefile != null" >
+		and is_createfile = #{isCreatefile,jdbcType=VARCHAR}
+	</if>
+	<if test="content != null" >
+		and content = #{content,jdbcType=VARCHAR}
+	</if>
+	<if test="createTimeStart != null" >
+		and create_time &gt;= #{createTimeStart}
+	</if>
+	<if test="createTimeEnd != null" >
+		and create_time &lt;= #{createTimeEnd}
+	</if>
+	<if test="cuser != null" >
+		and c_user = #{cuser,jdbcType=VARCHAR}
+	</if>
+  </where>
+  </sql>
+  <sql  id="page_order">
+	<if test="orderStr != null and orderStr != ''" >
+  		order by ${orderStr}
+  	</if>
+  </sql>
+  <sql id="page_limit">
+  	<if test="curRow!=null and limitSize!='' ">limit #{curRow},#{limitSize}</if>
+  </sql>
+  
+  
+  
+  
+  
+  
+  <delete id="deleteByMap" >
+	delete from xs_dic_content
+    where
+    
+    <if test="bookId != null" >
+		book_id = #{bookId,jdbcType=INTEGER}
+	</if>
+  </delete>
+  
+  
+  <insert id="insertBatchList" parameterType="com.wangzhixuan.model.XsDicContent" >
+    insert into xs_dic_content (
+			type_id,
+			type_name,
+			book_id,
+			book_name,
+			dic_name,
+			dic_geturl
+	)
+    values 
+    	<foreach collection="list" index="index" item="item" open=""
+			separator="," close="">
+			(
+			<trim suffixOverrides=",">
+				#{item.typeId,jdbcType=INTEGER},
+				#{item.typeName,jdbcType=VARCHAR},
+				#{item.bookId,jdbcType=INTEGER},
+				#{item.bookName,jdbcType=VARCHAR},
+				#{item.dicName,jdbcType=VARCHAR},
+				#{item.dicGeturl,jdbcType=VARCHAR},
+	  		</trim>
+		    )
+	</foreach>
+  </insert>
+  
+  
+</mapper>

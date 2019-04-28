@@ -76,6 +76,20 @@
     	
     }
     
+    function setshuoming(){
+    	var selVal = $('#dbtype').val();
+    	//<option value="1">获取前者在后者中没有的</option>
+		//<option value="2">获取后者在前者中没有的</option>
+    	$.messager.alert("操作提示", "说明已改变，请看变色部分文字");
+    	
+    	if(selVal=='1'){
+    		$('#shuoming').html("比如：数据源一有A,B,C。数据源二有B,C,D.导出的就是A，因为A在数据源二中没有");
+    		$('#shuoming').attr("style","color:red");
+    	}else{
+    		$('#shuoming').html("比如：数据源一有A,B,C。数据源二有B,C,D.导出的就是D，因为D在数据源一中没有");
+    		$('#shuoming').attr("style","color:blue");
+    	}
+    }
 </script>
 
 <!-- <link href="static/fileupload/progress.css" /> -->
@@ -121,10 +135,13 @@
             			选择对比方式
             		</td>
             		<td>
-            			<select id="dbtype">
+            			<select id="dbtype" onchange="setshuoming()">
             				<option value="1">获取前者在后者中没有的</option>
             				<option value="2">获取后者在前者中没有的</option>
             			</select>
+            		</td>
+            		<td>
+            			<span id="shuoming" style="color: red;">比如：数据源一有A,B,C。数据源二有B,C,D.导出的就是A，因为A在数据源二中没有</span>
             		</td>
             		<td>
             		

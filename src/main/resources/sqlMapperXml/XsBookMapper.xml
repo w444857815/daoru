@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhixuan.mapper.XsBookMapper" >
+  <resultMap id="BaseResultMap" type="com.wangzhixuan.model.XsBook" >
+			 <id column="id" property="id" jdbcType="INTEGER" />
+			<result column="title" property="title" jdbcType="VARCHAR" />
+			<result column="title_sub" property="titleSub" jdbcType="VARCHAR" />
+			<result column="get_url" property="getUrl" jdbcType="VARCHAR" />
+			<result column="get_status" property="getStatus" jdbcType="VARCHAR" />
+			<result column="type_id" property="typeId" jdbcType="VARCHAR" />
+			<result column="title_tag" property="titleTag" jdbcType="VARCHAR" />
+			<result column="author" property="author" jdbcType="VARCHAR" />
+			<result column="author_sub" property="authorSub" jdbcType="VARCHAR" />
+			<result column="words_num" property="wordsNum" jdbcType="VARCHAR" />
+			<result column="status" property="status" jdbcType="VARCHAR" />
+			<result column="book_intro" property="bookIntro" jdbcType="VARCHAR" />
+			<result column="last_new_chapter" property="lastNewChapter" jdbcType="VARCHAR" />
+			<result column="last_new_chapter_get_url" property="lastNewChapterGetUrl" jdbcType="VARCHAR" />
+			<result column="last_new_chapter_time" property="lastNewChapterTime" jdbcType="VARCHAR" />
+			<result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+			<result column="cuser" property="cuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+		id,
+		title,
+		title_sub,
+		get_url,
+		get_status,
+		type_id,
+		title_tag,
+		author,
+		author_sub,
+		words_num,
+		status,
+		book_intro,
+		last_new_chapter,
+		last_new_chapter_get_url,
+		last_new_chapter_time,
+		ctime,
+		cuser
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xs_book
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from xs_book
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangzhixuan.model.XsBook" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into xs_book (
+			id,
+			title,
+			title_sub,
+			get_url,
+			get_status,
+			type_id,
+			title_tag,
+			author,
+			author_sub,
+			words_num,
+			status,
+			book_intro,
+			last_new_chapter,
+			last_new_chapter_get_url,
+			last_new_chapter_time,
+			ctime,
+			cuser
+	)
+    values (
+			#{id,jdbcType=INTEGER},
+			#{title,jdbcType=VARCHAR},
+			#{titleSub,jdbcType=VARCHAR},
+			#{getUrl,jdbcType=VARCHAR},
+			#{getStatus,jdbcType=VARCHAR},
+			#{typeId,jdbcType=VARCHAR},
+			#{titleTag,jdbcType=VARCHAR},
+			#{author,jdbcType=VARCHAR},
+			#{authorSub,jdbcType=VARCHAR},
+			#{wordsNum,jdbcType=VARCHAR},
+			#{status,jdbcType=VARCHAR},
+			#{bookIntro,jdbcType=VARCHAR},
+			#{lastNewChapter,jdbcType=VARCHAR},
+			#{lastNewChapterGetUrl,jdbcType=VARCHAR},
+			#{lastNewChapterTime,jdbcType=VARCHAR},
+			#{ctime,jdbcType=TIMESTAMP},
+			#{cuser,jdbcType=VARCHAR}
+	  )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangzhixuan.model.XsBook" >
+	<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  		SELECT LAST_INSERT_ID() AS id
+  	</selectKey>
+    insert into xs_book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		id,
+		</if>
+		<if test="title != null" >
+		title,
+		</if>
+		<if test="titleSub != null" >
+		title_sub,
+		</if>
+		<if test="getUrl != null" >
+		get_url,
+		</if>
+		<if test="getStatus != null" >
+		get_status,
+		</if>
+		<if test="typeId != null" >
+		type_id,
+		</if>
+		<if test="titleTag != null" >
+		title_tag,
+		</if>
+		<if test="author != null" >
+		author,
+		</if>
+		<if test="authorSub != null" >
+		author_sub,
+		</if>
+		<if test="wordsNum != null" >
+		words_num,
+		</if>
+		<if test="status != null" >
+		status,
+		</if>
+		<if test="bookIntro != null" >
+		book_intro,
+		</if>
+		<if test="lastNewChapter != null" >
+		last_new_chapter,
+		</if>
+		<if test="lastNewChapterGetUrl != null" >
+		last_new_chapter_get_url,
+		</if>
+		<if test="lastNewChapterTime != null" >
+		last_new_chapter_time,
+		</if>
+		<if test="ctime != null" >
+		ctime,
+		</if>
+		<if test="cuser != null" >
+		cuser,
+		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+		<if test="id != null" >
+		#{id,jdbcType=INTEGER},
+		</if>
+		<if test="title != null" >
+		#{title,jdbcType=VARCHAR},
+		</if>
+		<if test="titleSub != null" >
+		#{titleSub,jdbcType=VARCHAR},
+		</if>
+		<if test="getUrl != null" >
+		#{getUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="getStatus != null" >
+		#{getStatus,jdbcType=VARCHAR},
+		</if>
+		<if test="typeId != null" >
+		#{typeId,jdbcType=VARCHAR},
+		</if>
+		<if test="titleTag != null" >
+		#{titleTag,jdbcType=VARCHAR},
+		</if>
+		<if test="author != null" >
+		#{author,jdbcType=VARCHAR},
+		</if>
+		<if test="authorSub != null" >
+		#{authorSub,jdbcType=VARCHAR},
+		</if>
+		<if test="wordsNum != null" >
+		#{wordsNum,jdbcType=VARCHAR},
+		</if>
+		<if test="status != null" >
+		#{status,jdbcType=VARCHAR},
+		</if>
+		<if test="bookIntro != null" >
+		#{bookIntro,jdbcType=VARCHAR},
+		</if>
+		<if test="lastNewChapter != null" >
+		#{lastNewChapter,jdbcType=VARCHAR},
+		</if>
+		<if test="lastNewChapterGetUrl != null" >
+		#{lastNewChapterGetUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="lastNewChapterTime != null" >
+		#{lastNewChapterTime,jdbcType=VARCHAR},
+		</if>
+		<if test="ctime != null" >
+		#{ctime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="cuser != null" >
+		#{cuser,jdbcType=VARCHAR},
+		</if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangzhixuan.model.XsBook" >
+    update xs_book
+    <set >
+	<if test="title != null" >
+	title = #{title,jdbcType=VARCHAR},
+	</if>
+	<if test="titleSub != null" >
+	title_sub = #{titleSub,jdbcType=VARCHAR},
+	</if>
+	<if test="getUrl != null" >
+	get_url = #{getUrl,jdbcType=VARCHAR},
+	</if>
+	<if test="getStatus != null" >
+	get_status = #{getStatus,jdbcType=VARCHAR},
+	</if>
+	<if test="typeId != null" >
+	type_id = #{typeId,jdbcType=VARCHAR},
+	</if>
+	<if test="titleTag != null" >
+	title_tag = #{titleTag,jdbcType=VARCHAR},
+	</if>
+	<if test="author != null" >
+	author = #{author,jdbcType=VARCHAR},
+	</if>
+	<if test="authorSub != null" >
+	author_sub = #{authorSub,jdbcType=VARCHAR},
+	</if>
+	<if test="wordsNum != null" >
+	words_num = #{wordsNum,jdbcType=VARCHAR},
+	</if>
+	<if test="status != null" >
+	status = #{status,jdbcType=VARCHAR},
+	</if>
+	<if test="bookIntro != null" >
+	book_intro = #{bookIntro,jdbcType=VARCHAR},
+	</if>
+	<if test="lastNewChapter != null" >
+	last_new_chapter = #{lastNewChapter,jdbcType=VARCHAR},
+	</if>
+	<if test="lastNewChapterGetUrl != null" >
+	last_new_chapter_get_url = #{lastNewChapterGetUrl,jdbcType=VARCHAR},
+	</if>
+	<if test="lastNewChapterTime != null" >
+	last_new_chapter_time = #{lastNewChapterTime,jdbcType=VARCHAR},
+	</if>
+	<if test="ctime != null" >
+	ctime = #{ctime,jdbcType=TIMESTAMP},
+	</if>
+	<if test="cuser != null" >
+	cuser = #{cuser,jdbcType=VARCHAR},
+	</if>
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangzhixuan.model.XsBook" >
+    update xs_book
+    set 
+			title = #{title,jdbcType=VARCHAR},
+			title_sub = #{titleSub,jdbcType=VARCHAR},
+			get_url = #{getUrl,jdbcType=VARCHAR},
+			get_status = #{getStatus,jdbcType=VARCHAR},
+			type_id = #{typeId,jdbcType=VARCHAR},
+			title_tag = #{titleTag,jdbcType=VARCHAR},
+			author = #{author,jdbcType=VARCHAR},
+			author_sub = #{authorSub,jdbcType=VARCHAR},
+			words_num = #{wordsNum,jdbcType=VARCHAR},
+			status = #{status,jdbcType=VARCHAR},
+			book_intro = #{bookIntro,jdbcType=VARCHAR},
+			last_new_chapter = #{lastNewChapter,jdbcType=VARCHAR},
+			last_new_chapter_get_url = #{lastNewChapterGetUrl,jdbcType=VARCHAR},
+			last_new_chapter_time = #{lastNewChapterTime,jdbcType=VARCHAR},
+			ctime = #{ctime,jdbcType=TIMESTAMP},
+			cuser = #{cuser,jdbcType=VARCHAR}
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xs_book
+  </select>
+  <delete id="batchDelete">
+	delete from xs_book
+    where id IN (${ids})
+  </delete>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xs_book
+	<where>
+	<if test="id != null" >
+	and id = #{id,jdbcType=INTEGER}
+	</if>
+	<if test="title != null" >
+	and title = #{title,jdbcType=VARCHAR}
+	</if>
+	<if test="titleSub != null" >
+	and title_sub = #{titleSub,jdbcType=VARCHAR}
+	</if>
+	<if test="getUrl != null" >
+	and get_url = #{getUrl,jdbcType=VARCHAR}
+	</if>
+	<if test="getStatus != null" >
+	and get_status = #{getStatus,jdbcType=VARCHAR}
+	</if>
+	<if test="typeId != null" >
+	and type_id = #{typeId,jdbcType=VARCHAR}
+	</if>
+	<if test="titleTag != null" >
+	and title_tag = #{titleTag,jdbcType=VARCHAR}
+	</if>
+	<if test="author != null" >
+	and author = #{author,jdbcType=VARCHAR}
+	</if>
+	<if test="authorSub != null" >
+	and author_sub = #{authorSub,jdbcType=VARCHAR}
+	</if>
+	<if test="wordsNum != null" >
+	and words_num = #{wordsNum,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null" >
+	and status = #{status,jdbcType=VARCHAR}
+	</if>
+	<if test="bookIntro != null" >
+	and book_intro = #{bookIntro,jdbcType=VARCHAR}
+	</if>
+	<if test="lastNewChapter != null" >
+	and last_new_chapter = #{lastNewChapter,jdbcType=VARCHAR}
+	</if>
+	<if test="lastNewChapterGetUrl != null" >
+	and last_new_chapter_get_url = #{lastNewChapterGetUrl,jdbcType=VARCHAR}
+	</if>
+	<if test="lastNewChapterTime != null" >
+	and last_new_chapter_time = #{lastNewChapterTime,jdbcType=VARCHAR}
+	</if>
+	<if test="ctime != null" >
+	and ctime = #{ctime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="cuser != null" >
+	and cuser = #{cuser,jdbcType=VARCHAR}
+	</if>
+	</where>
+  </select>
+  <select id="queryCount" resultType="java.lang.Long" parameterType="java.util.Map">
+	 select 
+    count(1)
+    from xs_book
+	<include refid="page_where"/>
+  </select>
+  <select id="queryPageResult" resultType="java.util.Map" parameterType="java.util.Map">
+	select 
+    <include refid="Base_Column_List" />
+    from xs_book
+	<include refid="page_where"/>
+	<include refid="page_order"/>
+	<include refid="page_limit"/>
+  </select>
+  <sql  id="page_where">
+  <where>
+	<if test="title != null" >
+		and title = #{title,jdbcType=VARCHAR}
+	</if>
+	<if test="titleSub != null" >
+		and title_sub = #{titleSub,jdbcType=VARCHAR}
+	</if>
+	<if test="getUrl != null" >
+		and get_url = #{getUrl,jdbcType=VARCHAR}
+	</if>
+	<if test="getStatus != null" >
+		and get_status = #{getStatus,jdbcType=VARCHAR}
+	</if>
+	<if test="typeId != null" >
+		and type_id = #{typeId,jdbcType=VARCHAR}
+	</if>
+	<if test="titleTag != null" >
+		and title_tag = #{titleTag,jdbcType=VARCHAR}
+	</if>
+	<if test="author != null" >
+		and author = #{author,jdbcType=VARCHAR}
+	</if>
+	<if test="authorSub != null" >
+		and author_sub = #{authorSub,jdbcType=VARCHAR}
+	</if>
+	<if test="wordsNum != null" >
+		and words_num = #{wordsNum,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null" >
+		and status = #{status,jdbcType=VARCHAR}
+	</if>
+	<if test="bookIntro != null" >
+		and book_intro = #{bookIntro,jdbcType=VARCHAR}
+	</if>
+	<if test="lastNewChapter != null" >
+		and last_new_chapter = #{lastNewChapter,jdbcType=VARCHAR}
+	</if>
+	<if test="lastNewChapterGetUrl != null" >
+		and last_new_chapter_get_url = #{lastNewChapterGetUrl,jdbcType=VARCHAR}
+	</if>
+	<if test="lastNewChapterTime != null" >
+		and last_new_chapter_time = #{lastNewChapterTime,jdbcType=VARCHAR}
+	</if>
+	<if test="ctimeStart != null" >
+		and ctime &gt;= #{ctimeStart}
+	</if>
+	<if test="ctimeEnd != null" >
+		and ctime &lt;= #{ctimeEnd}
+	</if>
+	<if test="cuser != null" >
+		and cuser = #{cuser,jdbcType=VARCHAR}
+	</if>
+  </where>
+  </sql>
+  <sql  id="page_order">
+	<if test="orderStr != null and orderStr != ''" >
+  		order by ${orderStr}
+  	</if>
+  </sql>
+  <sql id="page_limit">
+  	<if test="curRow!=null and limitSize!='' ">limit #{curRow},#{limitSize}</if>
+  </sql>
+  
+  
+  
+  
+  <insert id="insertBatchList" parameterType="com.wangzhixuan.model.XsBook" >
+  insert into xs_book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+		title,
+		title_sub,
+		get_url,
+		type_id,
+		title_tag,
+		author,
+		author_sub,
+		words_num,
+		status,
+		book_intro,
+		last_new_chapter,
+		last_new_chapter_get_url,
+		last_new_chapter_time,
+    </trim>
+    
+    values
+    
+    <foreach collection="list" index="index" item="item" open=""
+			separator="," close="">
+			(
+			<trim suffixOverrides=",">
+				#{item.title,jdbcType=VARCHAR},
+				#{item.titleSub,jdbcType=VARCHAR},
+				#{item.getUrl,jdbcType=VARCHAR},
+				#{item.typeId,jdbcType=VARCHAR},
+				#{item.titleTag,jdbcType=VARCHAR},
+				#{item.author,jdbcType=VARCHAR},
+				#{item.authorSub,jdbcType=VARCHAR},
+				#{item.wordsNum,jdbcType=VARCHAR},
+				#{item.status,jdbcType=VARCHAR},
+				#{item.bookIntro,jdbcType=VARCHAR},
+				#{item.lastNewChapter,jdbcType=VARCHAR},
+				#{item.lastNewChapterGetUrl,jdbcType=VARCHAR},
+				#{item.lastNewChapterTime,jdbcType=VARCHAR},
+		    </trim>
+		    )
+	</foreach>
+    
+  </insert>
+  
+  
+  
+  
+  
+  <delete id="deleteByMap" >
+	delete from xs_book
+    where 
+    <if test="typeId != null" >
+		type_id = #{typeId,jdbcType=VARCHAR}
+	</if>
+    
+  </delete>
+  
+  
+  
+  
+  <select id="selectBatchIds" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from xs_book where id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+  
+</mapper>

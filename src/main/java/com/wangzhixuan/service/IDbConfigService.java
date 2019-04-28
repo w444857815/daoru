@@ -45,7 +45,6 @@ public interface IDbConfigService extends IService<DbConfigTable> {
 	 * 
 	 * @Title批量插入动态表
 	 * @Package com.wangzhixuan.service
-	 * @Description:TODO
 	 * @author wangruwei
 	 * @date 2018年10月25日下午5:08:19
 	 * @param entityList
@@ -58,7 +57,6 @@ public interface IDbConfigService extends IService<DbConfigTable> {
 	 * 删表信息
 	 * @Title:IDbConfigService.java
 	 * @Package com.wangzhixuan.service
-	 * @Description:TODO
 	 * @author wangruwei
 	 * @date 2018年10月26日上午10:56:43
 	 * @version V1.0
@@ -70,7 +68,6 @@ public interface IDbConfigService extends IService<DbConfigTable> {
 	 * 查询对比出来的数据
 	 * @Title:IDbConfigService.java
 	 * @Package com.wangzhixuan.service
-	 * @Description:TODO
 	 * @author wangruwei
 	 * @date 2018年10月26日下午2:38:02
 	 * @param csmap
@@ -83,7 +80,6 @@ public interface IDbConfigService extends IService<DbConfigTable> {
 	 * 按表头有多少个来查找多少列
 	 * @Title:IDbConfigService.java
 	 * @Package com.wangzhixuan.service
-	 * @Description:TODO
 	 * @author wangruwei
 	 * @date 2018年12月4日下午3:43:27
 	 * @param csmap

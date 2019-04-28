@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.wangzhixuan.model.DbConfigTable;
+import com.wangzhixuan.model.XsDicContent;
 
 public class BreakList {  
     public static void main(String[] args) {  
-        List<DbConfigTable> tarArr = new ArrayList<DbConfigTable>();  
+        List<XsDicContent> tarArr = new ArrayList<XsDicContent>();  
 //        tarArr.add("a");  
 //        tarArr.add("b");  
 //        tarArr.add("c");  
@@ -18,11 +18,11 @@ public class BreakList {
 //        tarArr.add("g");  
 //        tarArr.add("h");  
         
-        List<List<DbConfigTable>> result = createListByUnitSize(tarArr, 4);  
+        List<List<XsDicContent>> result = createListByUnitSize(tarArr, 4);  
         System.out.println("分成了"+result.size()+"个");
-        for(List<DbConfigTable> subArr:result) {  
+        for(List<XsDicContent> subArr:result) {  
         	System.out.println("每个里面有"+subArr.size()+"个");
-            for(DbConfigTable str:subArr) {  
+            for(XsDicContent str:subArr) {  
                 System.out.println(str);  
             }  
         } 
@@ -30,9 +30,9 @@ public class BreakList {
         System.out.println("分割线");
         result = createListBySizeNum(tarArr,4);
         System.out.println("分成了"+result.size()+"个");
-        for(List<DbConfigTable> subArr:result) {  
+        for(List<XsDicContent> subArr:result) {  
         	System.out.println("每个里面有"+subArr.size()+"个");
-            for(DbConfigTable str:subArr) {  
+            for(XsDicContent str:subArr) {  
                 System.out.println(str);  
             }  
         } 
@@ -50,12 +50,12 @@ public class BreakList {
      * @return	
      * @version V1.0
      */
-    public static List<List<DbConfigTable>>  createListByUnitSize(List<DbConfigTable> sourceList,int size) {  
-        List<List<DbConfigTable>> listArr = new ArrayList<List<DbConfigTable>>();  
+    public static List<List<XsDicContent>>  createListByUnitSize(List<XsDicContent> sourceList,int size) {  
+        List<List<XsDicContent>> listArr = new ArrayList<List<XsDicContent>>();  
         //获取被拆分的数组个数  
         int arrSize = sourceList.size()%size==0?sourceList.size()/size:sourceList.size()/size+1;  
         for(int i=0;i<arrSize;i++) {  
-            List<DbConfigTable>  sub = new ArrayList<DbConfigTable>();  
+            List<XsDicContent>  sub = new ArrayList<XsDicContent>();  
             //把指定索引数据放入到list中  
             for(int j=i*size;j<=size*(i+1)-1;j++) {
                 if(j<=sourceList.size()-1) {  
@@ -112,14 +112,14 @@ public class BreakList {
      * @return
      * @version V1.0
      */
-    public static List<List<DbConfigTable>>  createListBySizeNum(List<DbConfigTable> sourceList,int nums) {
+    public static List<List<XsDicContent>>  createListBySizeNum(List<XsDicContent> sourceList,int nums) {
     	
-    	List<List<DbConfigTable>> result=new ArrayList<List<DbConfigTable>>();
+    	List<List<XsDicContent>> result=new ArrayList<List<XsDicContent>>();
 		int remaider=sourceList.size()%nums;  //(先计算出余数)
 		int number=sourceList.size()/nums;  //然后是商
 		int offset=0;//偏移量
 		for(int i=0;i<nums;i++){
-			List<DbConfigTable> value=null;
+			List<XsDicContent> value=null;
 			if(remaider>0){
 				value=sourceList.subList(i*number+offset, (i+1)*number+offset+1);
 				remaider--;

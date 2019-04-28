@@ -121,4 +121,13 @@
         <error-code>500</error-code>
         <location>/WEB-INF/views/error/500.jsp</location>
     </error-page>
+    
+    
+    
+    <servlet>
+	    <servlet-name>SocketServerListener</servlet-name>
+	    <servlet-class>com.wangzhixuan.ddxc.SocketServerListener</servlet-class>
+	    <load-on-startup>10</load-on-startup>
+	  </servlet>
+  
 </web-app>

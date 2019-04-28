@@ -1,5 +1,6 @@
 package com.wangzhixuan.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +44,8 @@ public class SpringThreadBeachInsertDbOne extends Thread {
 			//不管里面有多少，都分shiwuSize个
 //			List<List<DbConfigTable>> numsList = BreakList.createListBySizeNum(dbTableOneList, shiwuSize);
 			//按每个里面有多少来分，比如有100个，这里的数字是5，那就是分20个
-			List<List<DbConfigTable>> numsList = BreakList.createListByUnitSize(dbTableOneList, shiwuSize);
+//			List<List<DbConfigTable>> numsList = BreakList.createListByUnitSize(dbTableOneList, shiwuSize);
+			List<List<DbConfigTable>> numsList = new ArrayList<List<DbConfigTable>>() ;
 			for (int i = 0; i < numsList.size(); i++) {
 				// 开始时间
 				Long begin = new Date().getTime();
